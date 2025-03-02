@@ -1,8 +1,6 @@
-
+import 'package:baby_tracker/companents/custom_app_bar/custom_app_bar.dart';
 import 'package:baby_tracker/companents/custom_button/custom_elevated_button.dart';
-import 'package:baby_tracker/companents/custom_text/text_widget.dart';
 import 'package:baby_tracker/companents/custom_text_form_field/custom_text_form_field.dart';
-import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
 import 'package:baby_tracker/constants/device_config.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +9,7 @@ import 'package:baby_tracker/data/models/feeding_model.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/feeding/viewmodel/feeding_viewmodel.dart';
 import 'package:baby_tracker/pages/information/viewmodel/information_viewmodel.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FeedingView extends StatefulWidget {
   final FeedingModel? feedingModel;
@@ -24,25 +23,25 @@ class FeedingView extends StatefulWidget {
 }
 
 class _FeedingViewState extends State<FeedingView> {
-  final feedingViewmodel = locator<FeedingViewModel>();
-  final informationViewmodel = locator<InformationViewModel>();
+  final feedingViewModel = locator<FeedingViewModel>();
+  final informationViewModel = locator<InformationViewModel>();
   @override
   void initState() {
-    feedingViewmodel.timeController
-        .addListener(feedingViewmodel.updateButtonStatus);
-    feedingViewmodel.mlController
-        .addListener(feedingViewmodel.updateButtonStatus);
-    feedingViewmodel.noteController
-        .addListener(feedingViewmodel.updateButtonStatus);
+    feedingViewModel.timeController
+        .addListener(feedingViewModel.updateButtonStatus);
+    feedingViewModel.mlController
+        .addListener(feedingViewModel.updateButtonStatus);
+    feedingViewModel.noteController
+        .addListener(feedingViewModel.updateButtonStatus);
 
     if (widget.feedingModel != null) {
-      feedingViewmodel.noteController.text = widget.feedingModel!.note;
-      feedingViewmodel.timeController.text = widget.feedingModel!.time;
-      feedingViewmodel.mlController.text =
+      feedingViewModel.noteController.text = widget.feedingModel!.note;
+      feedingViewModel.timeController.text = widget.feedingModel!.time;
+      feedingViewModel.mlController.text =
           widget.feedingModel!.amount.toString();
-      feedingViewmodel.selectedFeed = widget.feedingModel;
+      feedingViewModel.selectedFeed = widget.feedingModel;
     } else {
-      feedingViewmodel.selectedFeed = null;
+      feedingViewModel.selectedFeed = null;
     }
     super.initState();
   }
@@ -51,52 +50,54 @@ class _FeedingViewState extends State<FeedingView> {
   Widget build(BuildContext context) {
     DeviceConfig().init(context);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigation.ofPop();
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.symmetric(vertical: 16.h),
+        child: CustomElevatedButtonView(
+            text: save,
+            onTop: () async {
+              feedingViewModel.isFeedingButtonTapped(context);
             },
-            icon: const Icon(Icons.arrow_back)),
+            color: darkPurple),
+      ),
+      resizeToAvoidBottomInset: false,
+      appBar: const CustomAppBarView(
+        appBarTitle: feeding,
+        textColor: darkBlue,
         centerTitle: true,
-        title: const TextWidgets(text: feeding, size: 27, color: darkBlue),
       ),
       body: Observer(
         builder: (context) => Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: DeviceConfig.screenHeight! * 0.0323),
-            CustomTextFormField(
-              labelText: time,
-              controller: feedingViewmodel.timeController,
-              keyboardType: TextInputType.name,
-              onTap: () {
-                informationViewmodel.selectTime(
-                  context,
-                  feedingViewmodel.timeController,
-                );
-              },
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.h),
+              child: CustomTextFormField(
+                labelText: time,
+                controller: feedingViewModel.timeController,
+                keyboardType: TextInputType.name,
+                onTap: () {
+                  informationViewModel.selectTime(
+                    context,
+                    feedingViewModel.timeController,
+                  );
+                },
+              ),
             ),
-            SizedBox(height: DeviceConfig.screenHeight! * 0.0323),
             CustomTextFormField(
               labelText: amount,
-              controller: feedingViewmodel.mlController,
+              controller: feedingViewModel.mlController,
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: DeviceConfig.screenHeight! * 0.0323),
-            CustomTextFormField(
-              hintText: note,
-              controller: feedingViewmodel.noteController,
-              keyboardType: TextInputType.name,
-              maxLines: 10,
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.h),
+              child: CustomTextFormField(
+                hintText: note,
+                controller: feedingViewModel.noteController,
+                keyboardType: TextInputType.name,
+                maxLines: 10,
+              ),
             ),
-            const Spacer(),
-            CustomElevatedButtonView(
-                text: save,
-                onTop: () async {
-                  feedingViewmodel.isFeedingButtonTapped(context);
-                },
-                color: darkPurple),
-            SizedBox(height: DeviceConfig.screenHeight! * 0.0323),
           ],
         ),
       ),

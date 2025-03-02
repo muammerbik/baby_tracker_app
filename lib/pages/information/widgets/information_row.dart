@@ -3,6 +3,7 @@ import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/information/viewmodel/information_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class InformationRow extends StatefulWidget {
   const InformationRow({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class InformationRow extends StatefulWidget {
 }
 
 class _InformationRowState extends State<InformationRow> {
-  final informationViewmodel = locator<InformationViewModel>();
+  final informationViewModel = locator<InformationViewModel>();
   @override
   Widget build(BuildContext context) {
     DeviceConfig().init(context);
@@ -22,39 +23,39 @@ class _InformationRowState extends State<InformationRow> {
         children: [
           GestureDetector(
             onTap: () {
-              informationViewmodel.toggleGirlImage();
+              informationViewModel.toggleGirlImage();
             },
-            child: informationViewmodel.isGirl != null &&
-                    informationViewmodel.isGirl!
+            child: informationViewModel.isGirl != null &&
+                    informationViewModel.isGirl!
                 ? Image.asset(
                     "assets/images/bbbx.png",
-                    height: DeviceConfig.screenHeight! * 0.0323,
-                    width: DeviceConfig.screenWidth! * 0.0700,
+                    height: 32.h,
+                    width: 32.w,
                   )
                 : Image.asset(
                     "assets/images/xx.png",
-                    height: DeviceConfig.screenHeight! * 0.0323,
-                    width: DeviceConfig.screenWidth! * 0.0700,
+                    height: 32.h,
+                    width: 32.w,
                   ),
           ),
           SizedBox(
-            width: DeviceConfig.screenWidth! * 0.0700,
+            width: 20.w,
           ),
           GestureDetector(
             onTap: () {
-              informationViewmodel.toggleSonImage();
+              informationViewModel.toggleSonImage();
             },
-            child: informationViewmodel.isGirl != null &&
-                    !informationViewmodel.isGirl!
+            child: informationViewModel.isGirl != null &&
+                    !informationViewModel.isGirl!
                 ? Image.asset(
                     "assets/images/aaay.png",
-                    height: DeviceConfig.screenHeight! * 0.0323,
-                    width: DeviceConfig.screenWidth! * 0.0700,
+                    height: 32.h,
+                    width: 32.w,
                   )
                 : Image.asset(
                     "assets/images/yy.png",
-                    height: DeviceConfig.screenHeight! * 0.0323,
-                    width: DeviceConfig.screenWidth! * 0.0700,
+                    height: 32.h,
+                    width: 32.w,
                   ),
           ),
         ],

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:baby_tracker/companents/custom_app_bar/custom_app_bar.dart';
 import 'package:baby_tracker/companents/custom_button/custom_elevated_button.dart';
 import 'package:baby_tracker/companents/custom_text/text_widget.dart';
 import 'package:baby_tracker/companents/custom_text_form_field/custom_text_form_field.dart';
@@ -12,6 +13,7 @@ import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/diaper_change/viewmodel/diaper_viewmodel.dart';
 import 'package:baby_tracker/pages/diaper_change/widgets/diaper_change_column.dart';
 import 'package:baby_tracker/pages/information/viewmodel/information_viewmodel.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DiaperChangeView extends StatefulWidget {
   final DiaperChangeModel? diaperChangeModel;
@@ -25,27 +27,26 @@ class DiaperChangeView extends StatefulWidget {
 }
 
 class _DiaperChangeViewState extends State<DiaperChangeView> {
-  final diaperViewmodel = locator<DiaperViewModel>();
-  final informationViewmodel = locator<InformationViewModel>();
-  
+  final diaperViewModel = locator<DiaperViewModel>();
+  final informationViewModel = locator<InformationViewModel>();
+
   @override
   void initState() {
-    diaperViewmodel.diaperTimeController
-        .addListener(diaperViewmodel.upDateButtonstatus);
-    diaperViewmodel.diaperNoteController
-        .addListener(diaperViewmodel.upDateButtonstatus);
+    diaperViewModel.diaperTimeController
+        .addListener(diaperViewModel.upDateButtonstatus);
+    diaperViewModel.diaperNoteController
+        .addListener(diaperViewModel.upDateButtonstatus);
 
     if (widget.diaperChangeModel != null) {
-      diaperViewmodel.diaperTimeController.text =
+      diaperViewModel.diaperTimeController.text =
           widget.diaperChangeModel!.time;
-      diaperViewmodel.selectedStatus = DiaperStatus
+      diaperViewModel.selectedStatus = DiaperStatus
           .values[int.parse(widget.diaperChangeModel!.diaperStatus)];
-      diaperViewmodel.diaperNoteController.text =
+      diaperViewModel.diaperNoteController.text =
           widget.diaperChangeModel!.note;
-      diaperViewmodel.selectedDiaper = widget.diaperChangeModel;
+      diaperViewModel.selectedDiaper = widget.diaperChangeModel;
     } else {
-      diaperViewmodel.selectedDiaper =
-          null; // Yeni veri eklenirken seçili öğeyi temizle
+      diaperViewModel.selectedDiaper = null;
     }
 
     super.initState();
@@ -56,40 +57,42 @@ class _DiaperChangeViewState extends State<DiaperChangeView> {
     DeviceConfig().init(context);
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        centerTitle: true,
-        title: const TextWidgets(
-          text: diaperChange,
-          size: 27,
-          color: lightblue,
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.symmetric(
+          vertical: 16.h,
         ),
+        child: CustomElevatedButtonView(
+            text: save,
+            onTop: () async {
+              diaperViewModel.isDiaperChangeButtonTapped(context);
+            },
+            color: lightblue),
+      ),
+      resizeToAvoidBottomInset: false,
+      appBar: const CustomAppBarView(
+        appBarTitle: diaperChange,
+        centerTitle: true,
+        textColor: lightblue,
       ),
       body: Observer(
         builder: (context) => Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: DeviceConfig.screenHeight! * 0.0323),
             CustomTextFormField(
                 labelText: time,
-                controller: diaperViewmodel.diaperTimeController,
+                controller: diaperViewModel.diaperTimeController,
                 onTap: () {
-                  informationViewmodel.selectTime(
-                      context, diaperViewmodel.diaperTimeController);
+                  informationViewModel.selectTime(
+                      context, diaperViewModel.diaperTimeController);
                 },
                 keyboardType: TextInputType.number),
             const DiaperChangeColumn(),
             CustomTextFormField(
               hintText: note,
-              controller: diaperViewmodel.diaperNoteController,
+              controller: diaperViewModel.diaperNoteController,
               maxLines: 10,
             ),
-            SizedBox(height: DeviceConfig.screenHeight! * 0.0323),
-            CustomElevatedButtonView(
-                text: save,
-                onTop: () async {
-                  diaperViewmodel.isDiaperChangeButtonTapped(context);
-                },
-                color: lightblue),
           ],
         ),
       ),

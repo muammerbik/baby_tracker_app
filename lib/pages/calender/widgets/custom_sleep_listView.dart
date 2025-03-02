@@ -1,4 +1,3 @@
-
 import 'package:baby_tracker/companents/custom_text/text_widget.dart';
 import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
@@ -8,6 +7,7 @@ import 'package:baby_tracker/pages/sleep/view/sleep_view.dart';
 import 'package:baby_tracker/pages/sleep/viewmodel/sleep_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomSleepListView extends StatefulWidget {
   const CustomSleepListView({super.key});
@@ -17,59 +17,60 @@ class CustomSleepListView extends StatefulWidget {
 }
 
 class _CustomSleepListViewState extends State<CustomSleepListView> {
-  final sleepViewmodel = locator<SleepViewModel>();
+  final sleepViewModel = locator<SleepViewModel>();
 
   @override
   Widget build(BuildContext context) {
     DeviceConfig().init(context);
-    return sleepViewmodel.sleepList.isNotEmpty
+    return sleepViewModel.sleepList.isNotEmpty
         ? ListView.builder(
-            itemCount: sleepViewmodel.sleepList.length,
+            itemCount: sleepViewModel.sleepList.length,
             itemBuilder: (context, index) {
-              final list = sleepViewmodel.sleepList[index];
+              final list = sleepViewModel.sleepList[index];
               return Dismissible(
                 direction: DismissDirection.startToEnd,
-                background: const Row(children: [
-                  Icon(
-                    Icons.delete,
-                    color: red,
-                    size: 30,
+                background: Row(children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    child: Icon(
+                      Icons.delete,
+                      color: red,
+                      size: 30.sp,
+                    ),
                   ),
                   TextWidgets(
                     text: delete,
-                    size: 20,
+                    size: 20.sp,
                     color: black,
                   )
                 ]),
                 key: UniqueKey(),
                 onDismissed: (direction) {
-                  sleepViewmodel.delete(list.id);
+                  sleepViewModel.delete(list.id);
                 },
                 child: GestureDetector(
                   onTap: () {
                     Navigation.push(
                       page: SleepView(sleepModel: list),
                     );
-                    sleepViewmodel.selectedSlep = list;
+                    sleepViewModel.selectedSlep = list;
                   },
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: DeviceConfig.screenHeight! * 0.0109,
-                        horizontal: DeviceConfig.screenHeight! * 0.0200),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
                     child: Container(
                       width: double.infinity,
                       decoration: ShapeDecoration(
                         color: darkWhite,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
+                          borderRadius: BorderRadius.circular(25.r),
                         ),
                       ),
                       child: Column(
                         children: [
                           Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: DeviceConfig.screenWidth! * 0.0373,
-                                vertical: DeviceConfig.screenHeight! * 0.0107),
+                                horizontal: 16.w, vertical: 16.h),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -77,70 +78,68 @@ class _CustomSleepListViewState extends State<CustomSleepListView> {
                                   children: [
                                     Image.asset(
                                       sleepIcon,
-                                      height:
-                                          DeviceConfig.screenHeight! * 0.0480,
+                                      height: 40.h,
                                       color: darkBlue,
                                     ),
-                                    const SizedBox(width: 5),
-                                    const TextWidgets(
+                                    SizedBox(width: 5.w),
+                                    TextWidgets(
                                       text: sleep,
-                                      size: 18,
+                                      size: 18.sp,
                                       color: darkBlue,
-                                    )
+                                    ),
                                   ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        DeviceConfig.screenWidth! * 0.044,
-                                  ),
-                                  child: TextWidgets(
-                                    text: list.wakeUp,
-                                    size: 16,
-                                    color: black,
-                                  ),
+                                TextWidgets(
+                                  text: list.wakeUp,
+                                  size: 16.sp,
+                                  color: black,
                                 ),
                               ],
                             ),
                           ),
                           const Divider(),
                           ListTile(
+                            contentPadding: EdgeInsets.only(left: 12.w),
                             title: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Image.asset(
                                   calenderImg,
                                   color: orange.shade800,
-                                  height: DeviceConfig.screenHeight! * 0.0451,
+                                  height: 42.h,
                                 ),
-                                const Text(
+                                SizedBox(
+                                  width: 6.w,
+                                ),
+                                Text(
                                   sleepNote,
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: 20.sp),
                                 ),
                               ],
                             ),
                             trailing: IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    sleepViewmodel.updateSelectedIndex(index);
+                                    sleepViewModel.updateSelectedIndex(index);
                                   });
                                 },
                                 icon: Icon(
-                                  sleepViewmodel.sleepSelectIndex == index
+                                  sleepViewModel.sleepSelectIndex == index
                                       ? Icons.expand_less
                                       : Icons.expand_more,
                                 )),
                           ),
-                          if (sleepViewmodel.sleepSelectIndex == index)
+                          if (sleepViewModel.sleepSelectIndex == index)
                             Observer(
                               builder: (context) => Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        DeviceConfig.screenWidth! * 0.0373,
-                                    vertical:
-                                        DeviceConfig.screenHeight! * 0.0107),
-                                child: Text(
-                                  list.note,
-                                  style: const TextStyle(fontSize: 16),
+                                    horizontal: 20.w, vertical: 12.h),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    list.note,
+                                    style: TextStyle(fontSize: 16.sp),
+                                  ),
                                 ),
                               ),
                             ),
@@ -152,11 +151,12 @@ class _CustomSleepListViewState extends State<CustomSleepListView> {
               );
             },
           )
-        : const Center(
+        : Center(
             child: TextWidgets(
-              text: sleepIsnotempty,
-              size: 18,
+              text: diaperIsempty,
+              size: 16.sp,
               color: black,
+              fontWeight: FontWeight.w500,
             ),
           );
   }

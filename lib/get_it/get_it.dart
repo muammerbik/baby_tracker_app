@@ -19,14 +19,14 @@ void setupGetIt() {
   locator.registerLazySingleton<FeedingLocalStorageHive>(() => FeedingStorage());
   locator.registerLazySingleton<SleepLocalStorageHive>(() => SleepStorage());
   locator.registerLazySingleton<InformationLocalStorageHive>(() => InformationStorage());
-  locator.registerSingleton<OnbordingViewModel>(OnbordingViewModel());
-  locator.registerSingleton<InappViewModel>(InappViewModel());
+  locator.registerSingleton<OnboardingViewModel>(OnboardingViewModel());
+  locator.registerSingleton<InAppViewModel>(InAppViewModel());
   locator.registerSingleton<InformationViewModel>(InformationViewModel());
   locator.registerSingleton<FeedingViewModel>(FeedingViewModel());
   locator.registerSingleton<SleepViewModel>(SleepViewModel());
   locator.registerSingleton<DiaperViewModel>(DiaperViewModel());
   locator.registerSingleton<SettingViewModel>(SettingViewModel());
-  locator.registerSingleton<CalenderViewMoel>(CalenderViewMoel());
+  locator.registerSingleton<CalenderViewModel>(CalenderViewModel());
   locator.registerSingleton<HomeViewModel>(HomeViewModel());
 
 

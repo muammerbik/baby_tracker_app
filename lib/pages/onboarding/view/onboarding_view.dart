@@ -3,29 +3,30 @@ import 'package:baby_tracker/constants/app_strings.dart';
 import 'package:baby_tracker/constants/device_config.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/onboarding/viewmodel/onbording_viewmodel.dart';
-import 'package:baby_tracker/pages/onboarding/widgets/stack_widgets.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OnbordingView extends StatefulWidget {
-  const OnbordingView({super.key});
+class OnboardingView extends StatefulWidget {
+  const OnboardingView({super.key});
 
   @override
-  State<OnbordingView> createState() => _OnbordingViewState();
+  State<OnboardingView> createState() => _OnboardingViewState();
 }
 
-class _OnbordingViewState extends State<OnbordingView> {
-  final onboardingViewmodel = locator<OnbordingViewModel>();
+class _OnboardingViewState extends State<OnboardingView> {
+  final onboardingViewModel = locator<OnboardingViewModel>();
 
   @override
   void initState() {
-    onboardingViewmodel.pageController = PageController(initialPage: 0);
+    onboardingViewModel.pageController = PageController(initialPage: 0);
     super.initState();
   }
 
   @override
   void dispose() {
-    onboardingViewmodel.pageController.dispose();
+    onboardingViewModel.pageController.dispose();
     super.dispose();
   }
 
@@ -33,33 +34,87 @@ class _OnbordingViewState extends State<OnbordingView> {
   Widget build(BuildContext context) {
     DeviceConfig().init(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.symmetric(vertical: 16.h),
+        child: CustomElevatedButtonView(
+          onTop: () {
+            onboardingViewModel.continueButtonTapped();
+          },
+          text: btnNext,
+          color: btnBlue,
+        ),
+      ),
       body: Observer(
-        builder: (context) => Column(
-          children: [
-            Expanded(
-              child: PageView.builder(
-                controller: onboardingViewmodel.pageController,
-                onPageChanged: onboardingViewmodel.onPageChanged,
-                physics: onboardingViewmodel.notGoBack
-                    ? const PageScrollPhysics()
-                    : const NeverScrollableScrollPhysics(),
-                itemCount: onboardingViewmodel.OnbordingList.length,
-                itemBuilder: (context, index) {
-                  return StackWidgets(
-                    onbordingIndex: index,
-                  );
-                },
+        builder: (context) => Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: PageView.builder(
+                  controller: onboardingViewModel.pageController,
+                  onPageChanged: onboardingViewModel.onPageChanged,
+                  physics: onboardingViewModel.notGoBack
+                      ? const PageScrollPhysics()
+                      : const NeverScrollableScrollPhysics(),
+                  itemCount: onboardingViewModel.OnboardingList.length,
+                  itemBuilder: (context, index) {
+                    final onboardingItem =
+                        onboardingViewModel.OnboardingList[index];
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            onboardingItem.img,
+                            width: double.infinity,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 16.h),
+                            child: Text(
+                              onboardingItem.title,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Text(
+                            onboardingItem.subTitle,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(color: Colors.grey),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-            CustomElevatedButtonView(
-              onTop: () {
-                onboardingViewmodel.continueButtonTapped();
-              },
-              text: btnNext,
-              color: btnBlue,
-            ),
-            SizedBox(height: DeviceConfig.screenHeight! * 0.0539),
-          ],
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 24.h),
+                child: DotsIndicator(
+                  dotsCount: onboardingViewModel.OnboardingList.length,
+                  position: onboardingViewModel.currentIndex.toDouble(),
+                  decorator: DotsDecorator(
+                    color: grey,
+                    activeColor: btnBlue,
+                    size: const Size.square(10.0),
+                    activeSize: const Size(24.0, 10.0),
+                    activeShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

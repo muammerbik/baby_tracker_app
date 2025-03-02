@@ -5,6 +5,7 @@ import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/diaper_change/viewmodel/diaper_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DiaperChangeColumn extends StatefulWidget {
   const DiaperChangeColumn({Key? key}) : super(key: key);
@@ -21,9 +22,7 @@ class _DiaperChangeColumnState extends State<DiaperChangeColumn> {
     DeviceConfig().init(context);
     return Observer(
       builder: (context) => Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: DeviceConfig.screenWidth! * 0.0511,
-            vertical: DeviceConfig.screenHeight! * 0.0107),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -32,21 +31,16 @@ class _DiaperChangeColumnState extends State<DiaperChangeColumn> {
               size: 15,
               color: black,
             ),
-
-            SizedBox(height: DeviceConfig.screenHeight! * 0.0107),
-            diaperStatusRow(DiaperStatus.Wet, "wett.png", "Wet"),
-            SizedBox(height: DeviceConfig.screenHeight! * 0.0107),
-
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 8.h),
+              child: diaperStatusRow(DiaperStatus.Wet, "wett.png", "Wet"),
+            ),
             diaperStatusRow(DiaperStatus.Dirty, "dirtyy.png", "Dirty"),
-            SizedBox(height: DeviceConfig.screenHeight! * 0.0107),
-
-            diaperStatusRow(DiaperStatus.Mixed, "mixedd.png", "Mixed"),
-            SizedBox(height: DeviceConfig.screenHeight! * 0.0107),
-
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 8.h),
+              child: diaperStatusRow(DiaperStatus.Mixed, "mixedd.png", "Mixed"),
+            ),
             diaperStatusRow(DiaperStatus.Dry, "dryy.png", "Dry"),
-            SizedBox(height: DeviceConfig.screenHeight! * 0.0207),
-
-            // Eklenen kısım
           ],
         ),
       ),
@@ -66,8 +60,8 @@ class _DiaperChangeColumnState extends State<DiaperChangeColumn> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: DeviceConfig.screenWidth! * 0.0700,
-              height: DeviceConfig.screenHeight! * 0.0363,
+              width: 24.w,
+              height: 24.h,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
               ),
@@ -75,15 +69,17 @@ class _DiaperChangeColumnState extends State<DiaperChangeColumn> {
                   isSelected
                       ? "assets/images/$imagePath"
                       : "assets/images/$imagePath",
-                  height: DeviceConfig.screenHeight! * 0.0363,
+                  height: 24.h,
                   color: isSelected ? null : diaperColor),
             ),
-            SizedBox(width: DeviceConfig.screenWidth! * 0.0233),
+            SizedBox(
+              width: 8.w,
+            ),
             TextWidgets(
               text: text,
-              size: 14,
+              size: 14.sp,
               color: isSelected ? darkBlue : lightGrey,
-            )
+            ),
           ],
         ),
       ),

@@ -19,6 +19,7 @@ const greyy = Colors.grey;
 const red = Colors.red;
 const orange = Colors.orange;
 const diaperColor = Color(0xFFC2C2C2);
+const grey = Colors.grey;
 
 //Text
 //
@@ -31,12 +32,12 @@ const inappText2 = 'All-in-one baby tracker';
 const inappText3 = 'Watch your babys growth';
 const camera = "Camera";
 const gallery = "Gallery";
-const continuee = "Continue";
+const continueButton = "Continue";
 const babyFullName = 'Baby Full Name';
 const birthDate = 'Birth Date';
 const timeOfBirth = 'Time of Birth';
 const dueDate = 'Due Date';
-const editProfie = 'Edit Profile';
+const editProfile = 'Edit Profile';
 const feeding = 'Feeding';
 const diaper = 'Diaper Change';
 const sleep = 'Sleep';
@@ -73,20 +74,28 @@ const diaperStatus = 'Diaper Status';
 const wakeApp = "Wake Up";
 const calender = "Calendar";
 const all = "All";
-const feedingIsempty = "No information about feeding!";
-const diaperIsempty = "No information about changing diapers!";
-const sleepIsnotempty = "No information about sleep!";
+const diaperIsempty = "There is no content available at the moment.";
 const feedingNote = "Feeding Note";
 const diaperNote = "Diaper Note";
-  const sleepNote ="Sleep Note";
+const sleepNote = "Sleep Note";
 const notee = " Note";
+
+const snackBarText = "Choose a premium plan to view the opportunities.";
+const weekly = "Weekly";
+const weekly$ = "\$12";
+const monthly = "Monthly";
+const monthly$ = "\$25";
+const annual = "Annual";
+const annual$ = "\$150";
+const premiumTextMessage =
+    "Premium support for your baby's development, every step of the way.";
 
 //imgage
 const onboardingImg1 = "assets/images/onbording1.png";
 const onboardingImg2 = "assets/images/onbording2.png";
 const onboardingImg3 = "assets/images/onbording3.png";
 const inappImgExit = "assets/images/inapp3.png";
-const inappImageBaby = "assets/images/inapp1.png";
+const inappImageBaby = "assets/icons/appicon.png";
 const inappImageDot = "assets/images/inapp2.png";
 const settingsImg1 = "assets/images/stng0.png";
 const settingsImg2 = "assets/images/stng1.png";

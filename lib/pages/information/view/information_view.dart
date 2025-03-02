@@ -1,15 +1,16 @@
+import 'package:baby_tracker/companents/custom_app_bar/custom_app_bar.dart';
 import 'package:baby_tracker/companents/custom_button/custom_elevated_button.dart';
 import 'package:baby_tracker/companents/custom_text_form_field/custom_text_form_field.dart';
 import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
 import 'package:baby_tracker/constants/device_config.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
-import 'package:baby_tracker/pages/home/view/home_view.dart';
 import 'package:baby_tracker/pages/information/viewmodel/information_viewmodel.dart';
 import 'package:baby_tracker/pages/information/widgets/add_image_widget.dart';
 import 'package:baby_tracker/pages/information/widgets/information_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class InformationView extends StatefulWidget {
   const InformationView({Key? key}) : super(key: key);
@@ -19,111 +20,93 @@ class InformationView extends StatefulWidget {
 }
 
 class _InformationViewState extends State<InformationView> {
-  final informationViewmodel = locator<InformationViewModel>();
+  final informationViewModel = locator<InformationViewModel>();
 
   @override
   void initState() {
     super.initState();
-    informationViewmodel.loadInformation();
+    informationViewModel.loadInformation();
   }
 
   @override
   Widget build(BuildContext context) {
-    DeviceConfig().init(context);
-    final String? localImagePath = informationViewmodel.imageFile?.path;
+    final String? localImagePath = informationViewModel.imageFile?.path;
     return Scaffold(
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.symmetric(vertical: 16.h),
+        child: CustomElevatedButtonView(
+          onTop: () async {
+            await informationViewModel.isInfoButtonTapped(
+              context,
+              localImagePath.toString(),
+            );
+          },
+          text: continueButton,
+          color: darkPurple,
+        ),
+      ),
+      appBar: CustomAppBarView(
+        appBarTitle: "",
+        customLeading: GestureDetector(
+            onTap: () {
+              Navigation.ofPop();
+            },
+            child: const Icon(Icons.arrow_back)),
+      ),
       resizeToAvoidBottomInset: false,
       body: Observer(
         builder: (context) => Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: DeviceConfig.screenHeight! * 0.0453),
             Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: DeviceConfig.screenWidth! * 0.046),
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: IconButton(
-                  onPressed: () {
-                    Navigation.push(
-                      page: const HomeView(),
-                    );
+              padding: EdgeInsets.symmetric(vertical: 16.h),
+              child: const AddImageWidgets(),
+            ),
+            Observer(
+              builder: (context) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 20.h),
+                child: const InformationRow(),
+              ),
+            ),
+            CustomTextFormField(
+              labelText: babyFullName,
+              controller: informationViewModel.nameController,
+              keyboardType: TextInputType.name,
+            ),
+            Observer(
+              builder: (context) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 16.h),
+                child: CustomTextFormField(
+                  labelText: birthDate,
+                  keyboardType: TextInputType.datetime,
+                  onTap: () async {
+                    await informationViewModel.selectDate(
+                        context, informationViewModel.birthDateController);
                   },
-                  icon: const Icon(Icons.arrow_back_ios),
+                  controller: informationViewModel.birthDateController,
                 ),
               ),
             ),
-            const AddImageWidgets(),
-            SizedBox(height: DeviceConfig.screenHeight! * 0.0493),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: DeviceConfig.screenHeight! * 0.690,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(color: lightGrey, width: 1),
-                  color: white,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(height: DeviceConfig.screenHeight! * 0.0369),
-                    Observer(
-                      builder: (context) => const InformationRow(),
-                    ),
-                    SizedBox(height: DeviceConfig.screenHeight! * 0.0369),
-                    CustomTextFormField(
-                      labelText: babyFullName,
-                      controller: informationViewmodel.nameController,
-                      keyboardType: TextInputType.name,
-                    ),
-                    SizedBox(height: DeviceConfig.screenHeight! * 0.0369),
-                    Observer(
-                      builder: (context) => CustomTextFormField(
-                        labelText: birthDate,
-                        keyboardType: TextInputType.datetime,
-                        onTap: () async {
-                          await informationViewmodel.selectDate(context,
-                              informationViewmodel.birthDateController);
-                        },
-                        controller: informationViewmodel.birthDateController,
-                      ),
-                    ),
-                    SizedBox(height: DeviceConfig.screenHeight! * 0.0369),
-                    CustomTextFormField(
-                      labelText: timeOfBirth,
-                      keyboardType: TextInputType.number,
-                      onTap: () {
-                        informationViewmodel.selectTime(context,
-                            informationViewmodel.timeofBirthController);
-                      },
-                      controller: informationViewmodel.timeofBirthController,
-                    ),
-                    SizedBox(height: DeviceConfig.screenHeight! * 0.0369),
-                    CustomTextFormField(
-                      labelText: dueDate,
-                      keyboardType: TextInputType.number,
-                      onTap: () {
-                        informationViewmodel.selectTime(
-                            context, informationViewmodel.dueDateController);
-                      },
-                      controller: informationViewmodel.dueDateController,
-                    ),
-                    SizedBox(height: DeviceConfig.screenHeight! * 0.0493),
-                    CustomElevatedButtonView(
-                      onTop: () async {
-                        await informationViewmodel.isInfoButtonTapped(
-                          context,
-                          localImagePath.toString(),
-                        );
-                      },
-                      text: continuee,
-                      color: darkPurple,
-                    ),
-                  ],
-                ),
+            CustomTextFormField(
+              labelText: timeOfBirth,
+              keyboardType: TextInputType.number,
+              onTap: () {
+                informationViewModel.selectTime(
+                    context, informationViewModel.timeofBirthController);
+              },
+              controller: informationViewModel.timeofBirthController,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.h),
+              child: CustomTextFormField(
+                labelText: dueDate,
+                keyboardType: TextInputType.number,
+                onTap: () {
+                  informationViewModel.selectTime(
+                      context, informationViewModel.dueDateController);
+                },
+                controller: informationViewModel.dueDateController,
               ),
             )
           ],

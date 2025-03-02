@@ -75,21 +75,21 @@ mixin _$InformationViewModel on _InformationViewModelBase, Store {
     });
   }
 
-  late final _$isInformationComplatedAtom = Atom(
-      name: '_InformationViewModelBase.isInformationComplated',
+  late final _$isInformationCompletedAtom = Atom(
+      name: '_InformationViewModelBase.isInformationCompleted',
       context: context);
 
   @override
-  bool get isInformationComplated {
-    _$isInformationComplatedAtom.reportRead();
-    return super.isInformationComplated;
+  bool get isInformationCompleted {
+    _$isInformationCompletedAtom.reportRead();
+    return super.isInformationCompleted;
   }
 
   @override
-  set isInformationComplated(bool value) {
-    _$isInformationComplatedAtom
-        .reportWrite(value, super.isInformationComplated, () {
-      super.isInformationComplated = value;
+  set isInformationCompleted(bool value) {
+    _$isInformationCompletedAtom
+        .reportWrite(value, super.isInformationCompleted, () {
+      super.isInformationCompleted = value;
     });
   }
 
@@ -165,24 +165,24 @@ mixin _$InformationViewModel on _InformationViewModelBase, Store {
     return _$initAsyncAction.run(() => super.init());
   }
 
-  late final _$informationComplatedSetAsyncAction = AsyncAction(
-      '_InformationViewModelBase.informationComplatedSet',
+  late final _$informationCompletedSetAsyncAction = AsyncAction(
+      '_InformationViewModelBase.informationCompletedSet',
       context: context);
 
   @override
-  Future<void> informationComplatedSet() {
-    return _$informationComplatedSetAsyncAction
-        .run(() => super.informationComplatedSet());
+  Future<void> informationCompletedSet() {
+    return _$informationCompletedSetAsyncAction
+        .run(() => super.informationCompletedSet());
   }
 
-  late final _$informationComlatedGetAsyncAction = AsyncAction(
-      '_InformationViewModelBase.informationComlatedGet',
+  late final _$informationCompletedGetAsyncAction = AsyncAction(
+      '_InformationViewModelBase.informationCompletedGet',
       context: context);
 
   @override
-  Future<void> informationComlatedGet() {
-    return _$informationComlatedGetAsyncAction
-        .run(() => super.informationComlatedGet());
+  Future<void> informationCompletedGet() {
+    return _$informationCompletedGetAsyncAction
+        .run(() => super.informationCompletedGet());
   }
 
   late final _$isInfoButtonTappedAsyncAction = AsyncAction(
@@ -306,7 +306,7 @@ nameController: ${nameController},
 birthDateController: ${birthDateController},
 timeofBirthController: ${timeofBirthController},
 dueDateController: ${dueDateController},
-isInformationComplated: ${isInformationComplated},
+isInformationCompleted: ${isInformationCompleted},
 imageFile: ${imageFile},
 picker: ${picker},
 isGirl: ${isGirl},

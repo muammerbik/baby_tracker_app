@@ -6,11 +6,11 @@ import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 part 'onbording_viewmodel.g.dart';
 
-class OnbordingViewModel = _OnbordingViewModelBase with _$OnbordingViewModel;
+class OnboardingViewModel = _OnboardingViewModelBase with _$OnboardingViewModel;
 
-abstract class _OnbordingViewModelBase with Store {
+abstract class _OnboardingViewModelBase with Store {
   @observable
-  bool isOnbordingComplated = false;
+  bool isOnboardingCompleted = false;
 
   @observable
   PageController pageController = PageController();
@@ -28,22 +28,22 @@ abstract class _OnbordingViewModelBase with Store {
   }
 
   @action
-  Future<void> onbordingComplatedSet() async {
+  Future<void> onboardingCompletedSet() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    await pref.setBool("isOnbordingComplated", true);
+    await pref.setBool("isOnboardingCompleted", true);
   }
 
   @action
-  Future<void> onbordingComlatedGet() async {
+  Future<void> onboardingCompletedGet() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    isOnbordingComplated = pref.getBool("isOnbordingComplated") ?? false;
+    isOnboardingCompleted = pref.getBool("isOnboardingCompleted") ?? false;
   }
 
   @action
   void continueButtonTapped() {
-    if (currentIndex == OnbordingList.length - 1) {
-      onbordingComplatedSet();
-      Navigation.push(page: const InappView());
+    if (currentIndex == OnboardingList.length - 1) {
+      onboardingCompletedSet();
+      Navigation.push(page: const InAppView());
     }
     pageController.nextPage(
         duration: const Duration(milliseconds: 200), curve: Curves.linear);
@@ -51,28 +51,28 @@ abstract class _OnbordingViewModelBase with Store {
 
 
   @observable
-  List<OnbordingModel> OnbordingList = [
-    OnbordingModel(
+  List<OnboardingModel> OnboardingList = [
+    OnboardingModel(
       img: onboardingImg1,
       title: onboardingTitle1,
       subTitle: onboardingSubTitle1,
     ),
-    OnbordingModel(
+    OnboardingModel(
         img: onboardingImg2,
         title: onboardingTitle2,
         subTitle: onboardingSubTitle2),
-    OnbordingModel(
+    OnboardingModel(
         img: onboardingImg3,
         title: onboardingTitle3,
         subTitle: onboardingSubTiitle3),
   ];
 }
 
-class OnbordingModel {
+class OnboardingModel {
   final String img;
   final String title;
   final String subTitle;
-  OnbordingModel({
+  OnboardingModel({
     required this.img,
     required this.title,
     required this.subTitle,

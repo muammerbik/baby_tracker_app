@@ -1,10 +1,11 @@
-import 'package:baby_tracker/companents/custom_text/text_widget.dart';
+import 'package:baby_tracker/companents/custom_app_bar/custom_app_bar.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
 import 'package:baby_tracker/constants/device_config.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/settings/viewmodel/settings_viewmodel.dart';
-import 'package:baby_tracker/pages/settings/widgets/settings_column.dart';
+import 'package:baby_tracker/pages/settings/widgets/settings_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({Key? key}) : super(key: key);
@@ -14,34 +15,50 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  final settingsViewmodel = locator<SettingViewModel>();
+  final settingsViewModel = locator<SettingViewModel>();
 
   @override
   Widget build(BuildContext context) {
     DeviceConfig().init(context);
     return Scaffold(
-      appBar: AppBar(
-          centerTitle: true,
-          title: const TextWidgets(
-            text: settings,
-            size: 27,
-            color: btnBlue,
-          )),
+      appBar: const CustomAppBarView(
+        appBarTitle: settings,
+        centerTitle: true,
+        textColor: btnBlue,
+      ),
       body: Center(
-        child: Column(
-          children: [
-            SizedBox(height: DeviceConfig.screenHeight! * 0.0120),
-            for (int i = 0; i < settingsViewmodel.settingsList.length; i++)
-              Column(
-                children: [
-                  SettingsColumn(
-                    leading: settingsViewmodel.settingsList[i].leading,
-                    title: settingsViewmodel.settingsList[i].title,
-                  ),
-                  SizedBox(height: DeviceConfig.screenHeight! * 0.0120),
-                ],
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 12.h),
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CustomSettingsButton(
+                leadingIcon: settingsImg1,
+                title: getPremiumm,
               ),
-          ],
+              CustomSettingsButton(
+                leadingIcon: settingsImg2,
+                title: rateUs,
+              ),
+              CustomSettingsButton(
+                leadingIcon: settingsImg3,
+                title: termsofUse,
+              ),
+              CustomSettingsButton(
+                leadingIcon: settingsImg4,
+                title: privaryPolicy,
+              ),
+              CustomSettingsButton(
+                leadingIcon: settingsImg5,
+                title: contactUs,
+              ),
+              CustomSettingsButton(
+                leadingIcon: settingsImg6,
+                title: restorePurchase,
+              ),
+            ],
+          ),
         ),
       ),
     );

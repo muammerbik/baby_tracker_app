@@ -1,4 +1,3 @@
-
 import 'package:baby_tracker/companents/custom_text/text_widget.dart';
 import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
@@ -8,6 +7,7 @@ import 'package:baby_tracker/pages/diaper_change/view/diaper_change_view.dart';
 import 'package:baby_tracker/pages/diaper_change/viewmodel/diaper_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDiaperListView extends StatefulWidget {
   const CustomDiaperListView({super.key});
@@ -17,38 +17,40 @@ class CustomDiaperListView extends StatefulWidget {
 }
 
 class _CustomDiaperListViewState extends State<CustomDiaperListView> {
-  final diaperViewmodel = locator.get<DiaperViewModel>();
+  final diaperViewModel = locator.get<DiaperViewModel>();
 
   @override
   Widget build(BuildContext context) {
     DeviceConfig().init(context);
     return Observer(
-      builder: (context) => diaperViewmodel.diaperList.isNotEmpty
+      builder: (context) => diaperViewModel.diaperList.isNotEmpty
           ? ListView.builder(
-              itemCount: diaperViewmodel.diaperList.length,
+              itemCount: diaperViewModel.diaperList.length,
               itemBuilder: (context, index) {
-                final list = diaperViewmodel.diaperList[index];
+                final list = diaperViewModel.diaperList[index];
 
                 return Dismissible(
                   direction: DismissDirection.startToEnd,
-                  background: const Row(
+                  background: Row(
                     children: [
-                      Icon(
-                        Icons.delete,
-                        color: red,
-                        size: 30,
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        child: Icon(
+                          Icons.delete,
+                          color: red,
+                          size: 30.sp,
+                        ),
                       ),
-                      SizedBox(width: 5),
                       TextWidgets(
                         text: delete,
-                        size: 20,
+                        size: 20.sp,
                         color: black,
                       ),
                     ],
                   ),
                   key: UniqueKey(),
                   onDismissed: (direction) {
-                    diaperViewmodel.delete(list.id);
+                    diaperViewModel.delete(list.id);
                   },
                   child: GestureDetector(
                     onTap: () {
@@ -57,28 +59,24 @@ class _CustomDiaperListViewState extends State<CustomDiaperListView> {
                           diaperChangeModel: list,
                         ),
                       );
-                      diaperViewmodel.selectedDiaper = list;
+                      diaperViewModel.selectedDiaper = list;
                     },
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: DeviceConfig.screenHeight! * 0.0109,
-                          horizontal: DeviceConfig.screenHeight! * 0.0200),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
                       child: Container(
                         width: double.infinity,
                         decoration: ShapeDecoration(
                           color: darkWhite,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
+                            borderRadius: BorderRadius.circular(25.r),
                           ),
                         ),
                         child: Column(
                           children: [
                             Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      DeviceConfig.screenWidth! * 0.0373,
-                                  vertical:
-                                      DeviceConfig.screenHeight! * 0.0107),
+                                  horizontal: 16.w, vertical: 16.h),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -87,71 +85,69 @@ class _CustomDiaperListViewState extends State<CustomDiaperListView> {
                                     children: [
                                       Image.asset(
                                         diaperIcon,
-                                        height:
-                                            DeviceConfig.screenHeight! * 0.0300,
+                                        height: 30.h,
                                         color: darkBlue,
                                       ),
-                                      const SizedBox(width: 10),
-                                      const TextWidgets(
+                                      SizedBox(width: 8.w),
+                                      TextWidgets(
                                         text: diaper,
-                                        size: 18,
+                                        size: 18.sp,
                                         color: darkBlue,
                                       )
                                     ],
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          DeviceConfig.screenWidth! * 0.044,
-                                    ),
-                                    child: TextWidgets(
-                                      text: list.time,
-                                      size: 16,
-                                      color: black,
-                                    ),
+                                  TextWidgets(
+                                    text: list.time,
+                                    size: 16.sp,
+                                    color: black,
                                   ),
                                 ],
                               ),
                             ),
                             const Divider(),
                             ListTile(
+                              contentPadding: EdgeInsets.only(left: 12.w),
                               title: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Image.asset(
                                     calenderImg,
                                     color: orange.shade800,
-                                    height: DeviceConfig.screenHeight! * 0.0451,
+                                    height: 42.h,
                                   ),
-                                  const Text(
+                                  SizedBox(
+                                    width: 6.w,
+                                  ),
+                                  Text(
                                     diaperNote,
-                                    style: TextStyle(fontSize: 20),
+                                    style: TextStyle(fontSize: 20.sp),
                                   ),
                                 ],
                               ),
                               trailing: IconButton(
                                   onPressed: () {
                                     setState(() {
-                                      diaperViewmodel
+                                      diaperViewModel
                                           .updateSelectedIndex(index);
                                     });
                                   },
                                   icon: Icon(
-                                    diaperViewmodel.diaperSelectedIndex == index
+                                    diaperViewModel.diaperSelectedIndex == index
                                         ? Icons.expand_less
                                         : Icons.expand_more,
                                   )),
                             ),
-                            if (diaperViewmodel.diaperSelectedIndex == index)
+                            if (diaperViewModel.diaperSelectedIndex == index)
                               Observer(
                                 builder: (context) => Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          DeviceConfig.screenWidth! * 0.0373,
-                                      vertical:
-                                          DeviceConfig.screenHeight! * 0.0107),
-                                  child: Text(
-                                    list.note,
-                                    style: const TextStyle(fontSize: 16),
+                                      horizontal: 20.w, vertical: 12.h),
+                                  child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      list.note,
+                                      style: TextStyle(fontSize: 16.sp),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -163,10 +159,12 @@ class _CustomDiaperListViewState extends State<CustomDiaperListView> {
                 );
               },
             )
-          : const Center(
-              child: Text(
-                diaperIsempty,
-                style: TextStyle(fontSize: 18),
+          : Center(
+              child: TextWidgets(
+                text: diaperIsempty,
+                size: 16.sp,
+                color: black,
+                fontWeight: FontWeight.w500,
               ),
             ),
     );

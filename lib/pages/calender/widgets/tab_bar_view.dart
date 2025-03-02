@@ -1,8 +1,6 @@
-
-import 'package:baby_tracker/companents/custom_text/text_widget.dart';
+import 'package:baby_tracker/companents/custom_app_bar/custom_app_bar.dart';
 import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
-import 'package:baby_tracker/constants/device_config.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/calender/viewmodel/calender_viewmodel.dart';
 import 'package:baby_tracker/pages/calender/widgets/custom_all_listView.dart';
@@ -15,6 +13,7 @@ import 'package:baby_tracker/pages/home/view/home_view.dart';
 import 'package:baby_tracker/pages/sleep/viewmodel/sleep_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TabbarView extends StatefulWidget {
   const TabbarView({Key? key}) : super(key: key);
@@ -25,10 +24,10 @@ class TabbarView extends StatefulWidget {
 
 class _TabbarViewState extends State<TabbarView> with TickerProviderStateMixin {
   late final TabController tabController;
-  final calenderViewmodel = locator<CalenderViewMoel>();
-  final feedingViewmodel= locator<FeedingViewModel>();
-  final diaperViewmodel = locator<DiaperViewModel>();
-  final sleepViewmodel = locator<SleepViewModel>();
+  final calenderViewModel = locator<CalenderViewModel>();
+  final feedingViewModel = locator<FeedingViewModel>();
+  final diaperViewModel = locator<DiaperViewModel>();
+  final sleepViewModel = locator<SleepViewModel>();
 
   @override
   void initState() {
@@ -46,71 +45,67 @@ class _TabbarViewState extends State<TabbarView> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) => Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                feedingViewmodel.clearControllersFeeding();
-                diaperViewmodel.clearControllersDiaper();
-                sleepViewmodel.clearControlersSleep();
-                Navigation.push(page: const HomeView());
-              },
-              icon: const Icon(Icons.arrow_back_ios_new_outlined)),
-          title: const Column(
-            children: [
-              TextWidgets(
-                text: calender,
-                size: 30,
-                fontWeight: FontWeight.bold,
-                color: btnBlue,
-              )
-            ],
+        appBar: CustomAppBarView(
+          customLeading: IconButton(
+            onPressed: () {
+              feedingViewModel.clearControllersFeeding();
+              diaperViewModel.clearControllersDiaper();
+              sleepViewModel.clearControlersSleep();
+              Navigation.push(
+                page: const HomeView(),
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: black,
+            ),
           ),
+          appBarTitle: calender,
           centerTitle: true,
+          textColor: btnBlue,
         ),
         body: Column(
           children: [
             Text(
-              calenderViewmodel.getFormattedDate(
+              calenderViewModel.getFormattedDate(
                 DateTime.now(),
               ),
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: DeviceConfig.screenWidth! * 0.0467,
-                  vertical: DeviceConfig.screenHeight! * 0.0207),
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
               child: TabBar(
                 controller: tabController,
                 tabs: <Widget>[
-                  const Tab(
+                  Tab(
                     child: Tooltip(
                       message: all,
                       child: Text(
                         all,
                         style: TextStyle(
-                            color: greyy,
-                            fontSize: 32,
+                            color: grey,
+                            fontSize: 32.sp,
                             fontWeight: FontWeight.w300),
                       ),
                     ),
                   ),
                   Tab(
-                    height: 40,
+                    height: 40.sp,
                     child: Tooltip(
                       message: feeding,
                       child: Image.asset(
                         feedingIcon,
-                        color: greyy,
+                        color: grey,
                       ),
                     ),
                   ),
                   Tab(
-                    height: 40,
+                    height: 40.sp,
                     child: Tooltip(
                       message: diaperChange,
                       child: Image.asset(
                         diaperIcon,
-                        color: greyy,
+                        color: grey,
                       ),
                     ),
                   ),
@@ -119,7 +114,7 @@ class _TabbarViewState extends State<TabbarView> with TickerProviderStateMixin {
                       message: sleep,
                       child: Image.asset(
                         sleepIcon,
-                        color: greyy,
+                        color: grey,
                       ),
                     ),
                   ),
@@ -132,7 +127,7 @@ class _TabbarViewState extends State<TabbarView> with TickerProviderStateMixin {
                 children: <Widget>[
                   Observer(
                     builder: (context) {
-                      calenderViewmodel.mergeLists();
+                      calenderViewModel.mergeLists();
                       return const CustomAllListView();
                     },
                   ),

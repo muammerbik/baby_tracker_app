@@ -5,6 +5,7 @@ import 'package:baby_tracker/pages/information/viewmodel/information_viewmodel.d
 import 'package:baby_tracker/pages/information/widgets/action_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddImageWidgets extends StatefulWidget {
   const AddImageWidgets({Key? key}) : super(key: key);
@@ -36,8 +37,8 @@ class _AddImageWidgetsState extends State<AddImageWidgets> {
         child: Stack(
           children: [
             Container(
-              width: DeviceConfig.screenWidth! * 0.3130,
-              height: DeviceConfig.screenHeight! * 0.1459,
+              width: 150.w,
+              height: 150.w,
               decoration: const ShapeDecoration(
                 shape: OvalBorder(
                   side: BorderSide(width: 1, color: purple),
@@ -45,12 +46,11 @@ class _AddImageWidgetsState extends State<AddImageWidgets> {
               ),
               child: informationGetIt.imageFile == null
                   ? Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: DeviceConfig.screenWidth! * 0.0817),
+                      padding: EdgeInsets.symmetric(horizontal: 36.w),
                       child: Image.asset("assets/images/camera.png"),
                     )
                   : ClipRRect(
-                      borderRadius: BorderRadius.circular(70),
+                      borderRadius: BorderRadius.circular(70.r),
                       child: Image.file(
                         informationGetIt.imageFile!,
                         fit: BoxFit.cover,
@@ -62,8 +62,8 @@ class _AddImageWidgetsState extends State<AddImageWidgets> {
               right: 5,
               child: informationGetIt.imageFile == null
                   ? Container(
-                      height: DeviceConfig.screenHeight! * 0.0323,
-                      width: DeviceConfig.screenWidth! * 0.0700,
+                      height: 32.w,
+                      width: 32.w,
                       decoration: const ShapeDecoration(
                         color: white,
                         shape: OvalBorder(
@@ -75,7 +75,7 @@ class _AddImageWidgetsState extends State<AddImageWidgets> {
                       ),
                     )
                   : Container(),
-            )
+            ),
           ],
         ),
       ),

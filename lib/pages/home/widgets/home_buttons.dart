@@ -1,7 +1,7 @@
 import 'package:baby_tracker/companents/custom_text/text_widget.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
-import 'package:baby_tracker/constants/device_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeButtons extends StatefulWidget {
   final Color color;
@@ -24,26 +24,22 @@ class HomeButtons extends StatefulWidget {
 class _HomeButtonsState extends State<HomeButtons> {
   @override
   Widget build(BuildContext context) {
-    DeviceConfig().init(context);
     return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: DeviceConfig.screenWidth! * 0.0560,
-          vertical: DeviceConfig.screenHeight! * 0.0107),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       child: GestureDetector(
         onTap: widget.onTap,
         child: Container(
-          width: DeviceConfig.screenWidth! * 0.8878,
-          height: DeviceConfig.screenHeight! * 0.0680,
+          height: 64.h,
           clipBehavior: Clip.antiAlias,
           decoration: ShapeDecoration(
             color: widget.color,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(12.r),
             ),
           ),
           child: ListTile(
             leading: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
               child: Image.asset(
                 widget.img,
                 color: white,
@@ -51,7 +47,7 @@ class _HomeButtonsState extends State<HomeButtons> {
             ),
             title: TextWidgets(
               text: widget.title,
-              size: 22,
+              size: 22.sp,
               textAlign: TextAlign.start,
             ),
           ),

@@ -37,7 +37,7 @@ abstract class _InformationViewModelBase with Store {
   @observable
   TextEditingController dueDateController = TextEditingController();
   @observable
-  bool isInformationComplated = false;
+  bool isInformationCompleted = false;
   @observable
   File? imageFile;
   @observable
@@ -63,16 +63,16 @@ abstract class _InformationViewModelBase with Store {
   }
 
   @action
-  Future<void> informationComplatedSet() async {
+  Future<void> informationCompletedSet() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setBool("isInformationComplated", true);
-    isInformationComplated = true;
+    pref.setBool("isInformationCompleted", true);
+    isInformationCompleted = true;
   }
 
   @action
-  Future<void> informationComlatedGet() async {
+  Future<void> informationCompletedGet() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    isInformationComplated = pref.getBool("isInformationComplated") ?? false;
+    isInformationCompleted = pref.getBool("isInformationCompleted") ?? false;
   }
 
   @action
@@ -89,7 +89,7 @@ abstract class _InformationViewModelBase with Store {
         await addInformation();
       }
 
-      informationComplatedSet();
+      informationCompletedSet();
       Navigation.push(page: const HomeView());
     } else {
       showDialog(
@@ -268,6 +268,66 @@ abstract class _InformationViewModelBase with Store {
       imageCache.clear();
 
       imageFile = File(croppedFile.path);
+    }
+  }
+   String calculateAge(String birthDate) {
+    try {
+      DateTime birthDateTime = DateFormat('dd/MM/yyyy').parse(birthDate);
+      DateTime today = DateTime.now();
+
+      if (birthDateTime.isAfter(today)) {
+        return "Geçersiz yaş";
+      }
+
+      int days = today.difference(birthDateTime).inDays;
+
+      if (days < 7) {
+        return '$days ' +
+            ("day" + (days > 1 ? "s" : ""));
+      }
+
+      int weeks = (days / 7).floor();
+
+      if (days >= 30) {
+        int months =
+            (days / 30).floor();
+        int remainingWeeks =
+            (days - (months * 30)) ~/ 7;
+
+        if (remainingWeeks >= 4) {
+          months += 1;
+          remainingWeeks -= 4;
+        }
+
+        if (months >= 12) {
+          int years = months ~/ 12;
+          months = months % 12;
+          return '$years ' +
+              ("year" + (years > 1 ? "s" : "")) +
+              ', $months ' +
+              ("month" + (months > 1 ? "s" : "")) +
+              (remainingWeeks > 0
+                  ? ', $remainingWeeks ' +
+                      ("week" + (remainingWeeks > 1 ? "s" : ""))
+                  : '');
+        } else {
+          return '$months ' +
+              ("month" + (months > 1 ? "s" : "")) +
+              (remainingWeeks > 0
+                  ? ', $remainingWeeks ' +
+                      ("week" + (remainingWeeks > 1 ? "s" : ""))
+                  : '');
+        }
+      }
+
+      return '$weeks ' +
+          ("week" + (weeks > 1 ? "s" : "")) +
+          (days - (weeks * 7) > 0
+              ? ', ${days - (weeks * 7)} ' +
+                  ("day" + (days - (weeks * 7) > 1 ? "s" : ""))
+              : '');
+    } catch (e) {
+      return "Tarih ayarlanmadı";
     }
   }
 }

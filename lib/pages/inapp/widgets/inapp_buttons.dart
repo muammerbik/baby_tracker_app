@@ -1,111 +1,61 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:baby_tracker/companents/custom_text/text_widget.dart';
-import 'package:baby_tracker/constants/app_strings.dart';
-import 'package:baby_tracker/constants/device_config.dart';
-import 'package:baby_tracker/get_it/get_it.dart';
-import 'package:baby_tracker/pages/inapp/viewmodel/inapp_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:baby_tracker/constants/app_strings.dart';
 
-class InappButton extends StatefulWidget {
-  const InappButton({Key? key}) : super(key: key);
 
-  @override
-  State<InappButton> createState() => _InappButtonState();
-}
-class _InappButtonState extends State<InappButton> {
-  final inappViewmodel = locator<InappViewModel>();
+class CustomInAppButtonWidget extends StatelessWidget {
+  final String premiumTime;
+  final String premiumMoney;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const CustomInAppButtonWidget({
+    Key? key,
+    required this.premiumTime,
+    required this.premiumMoney,
+    required this.isSelected,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    DeviceConfig().init(context);
-    return Observer(
-      builder: (context) => Column(
-        children: List.generate(
-          3,
-          (index) => buildButton(
-            index,
-            buttonText: getButtonText(index),
-            buttonPrice: getButtonPrice(index),
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
+        child: Container(
+          width: double.infinity,
+          height: 64.h,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(70.r),
+            border: Border.all(
+              color: isSelected ? btnBlue : Colors.transparent,
+              width: 2.0,
+            ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildButton(int index,
-      {required String buttonText, required String buttonPrice}) {
-    bool isSelected = inappViewmodel.selectedButtonIndex == index;
-
-    return Observer(
-      builder: (context) => Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: DeviceConfig.screenWidth! * 0.0467,
-          vertical: DeviceConfig.screenHeight! * 0.0107,
-        ),
-        child: GestureDetector(
-          onTap: () {
-            if (inappViewmodel.selectedButtonIndex == index) {
-              inappViewmodel.selectedButtonIndex = -1;
-            } else {
-              inappViewmodel.selectedButtonIndex = index;
-            }
-          },
-          child: Container(
-            width: double.infinity,
-            height: DeviceConfig.screenHeight! * 0.0885,
-            decoration: ShapeDecoration(
-              color: darkWhite,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
-                side: BorderSide(
-                  color: isSelected ? btnBlue : cTransparent,
-                  width: 2.0,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextWidgets(
+                  text: premiumTime,
+                  size: 18.sp,
+                  color: Colors.black,
                 ),
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: DeviceConfig.screenWidth! * 0.0467,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextWidgets(
-                    text: buttonText,
-                    size: 18,
-                    color: black,
-                  ),
-                  TextWidgets(
-                    text: buttonPrice,
-                    size: 18,
-                    color: black,
-                  ),
-                ],
-              ),
+                TextWidgets(
+                  text: premiumMoney,
+                  size: 18.sp,
+                  color: Colors.black,
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  String getButtonText(int index) {
-    if (index == 0) {
-      return 'Weekly';
-    } else if (index == 1) {
-      return 'Monthly';
-    } else {
-      return 'Annual';
-    }
-  }
-
-  String getButtonPrice(int index) {
-    if (index == 0) {
-      return '\$10';
-    } else if (index == 1) {
-      return '\$15';
-    } else {
-      return '\$20';
-    }
   }
 }

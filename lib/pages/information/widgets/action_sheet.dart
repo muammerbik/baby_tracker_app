@@ -6,6 +6,7 @@ class ActionSheet extends StatelessWidget {
   final VoidCallback galleryTapped;
 
   const ActionSheet({
+    super.key,
     required this.cameraTapped,
     required this.galleryTapped,
   });

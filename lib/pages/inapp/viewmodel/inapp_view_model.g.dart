@@ -8,9 +8,9 @@ part of 'inapp_view_model.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$InappViewModel on _InappViewModelBase, Store {
+mixin _$InAppViewModel on _InAppViewModelBase, Store {
   late final _$selectedButtonIndexAtom =
-      Atom(name: '_InappViewModelBase.selectedButtonIndex', context: context);
+      Atom(name: '_InAppViewModelBase.selectedButtonIndex', context: context);
 
   @override
   int get selectedButtonIndex {
@@ -25,52 +25,66 @@ mixin _$InappViewModel on _InappViewModelBase, Store {
     });
   }
 
-  late final _$isInappComplatedAtom =
-      Atom(name: '_InappViewModelBase.isInappComplated', context: context);
+  late final _$isInAppCompletedAtom =
+      Atom(name: '_InAppViewModelBase.isInAppCompleted', context: context);
 
   @override
-  bool get isInappComplated {
-    _$isInappComplatedAtom.reportRead();
-    return super.isInappComplated;
+  bool get isInAppCompleted {
+    _$isInAppCompletedAtom.reportRead();
+    return super.isInAppCompleted;
   }
 
   @override
-  set isInappComplated(bool value) {
-    _$isInappComplatedAtom.reportWrite(value, super.isInappComplated, () {
-      super.isInappComplated = value;
+  set isInAppCompleted(bool value) {
+    _$isInAppCompletedAtom.reportWrite(value, super.isInAppCompleted, () {
+      super.isInAppCompleted = value;
     });
   }
 
-  late final _$inappButtonTappedAsyncAction =
-      AsyncAction('_InappViewModelBase.inappButtonTapped', context: context);
+  late final _$inAppButtonTappedAsyncAction =
+      AsyncAction('_InAppViewModelBase.inAppButtonTapped', context: context);
 
   @override
-  Future<void> inappButtonTapped(BuildContext context) {
-    return _$inappButtonTappedAsyncAction
-        .run(() => super.inappButtonTapped(context));
+  Future<void> inAppButtonTapped(BuildContext context) {
+    return _$inAppButtonTappedAsyncAction
+        .run(() => super.inAppButtonTapped(context));
   }
 
-  late final _$inappComplatedSetAsyncAction =
-      AsyncAction('_InappViewModelBase.inappComplatedSet', context: context);
+  late final _$inAppCompletedSetAsyncAction =
+      AsyncAction('_InAppViewModelBase.inAppCompletedSet', context: context);
 
   @override
-  Future<void> inappComplatedSet() {
-    return _$inappComplatedSetAsyncAction.run(() => super.inappComplatedSet());
+  Future<void> inAppCompletedSet() {
+    return _$inAppCompletedSetAsyncAction.run(() => super.inAppCompletedSet());
   }
 
-  late final _$inappComplatedGetAsyncAction =
-      AsyncAction('_InappViewModelBase.inappComplatedGet', context: context);
+  late final _$inAppCompletedGetAsyncAction =
+      AsyncAction('_InAppViewModelBase.inAppCompletedGet', context: context);
 
   @override
-  Future<void> inappComplatedGet() {
-    return _$inappComplatedGetAsyncAction.run(() => super.inappComplatedGet());
+  Future<void> inAppCompletedGet() {
+    return _$inAppCompletedGetAsyncAction.run(() => super.inAppCompletedGet());
+  }
+
+  late final _$_InAppViewModelBaseActionController =
+      ActionController(name: '_InAppViewModelBase', context: context);
+
+  @override
+  void selectPlan(int index) {
+    final _$actionInfo = _$_InAppViewModelBaseActionController.startAction(
+        name: '_InAppViewModelBase.selectPlan');
+    try {
+      return super.selectPlan(index);
+    } finally {
+      _$_InAppViewModelBaseActionController.endAction(_$actionInfo);
+    }
   }
 
   @override
   String toString() {
     return '''
 selectedButtonIndex: ${selectedButtonIndex},
-isInappComplated: ${isInappComplated}
+isInAppCompleted: ${isInAppCompleted}
     ''';
   }
 }

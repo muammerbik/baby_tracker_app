@@ -6,7 +6,6 @@ import 'package:baby_tracker/pages/information/view/information_view.dart';
 import 'package:baby_tracker/pages/information/viewmodel/information_viewmodel.dart';
 import 'package:baby_tracker/pages/onboarding/view/onboarding_view.dart';
 import 'package:baby_tracker/pages/onboarding/viewmodel/onbording_viewmodel.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -18,15 +17,15 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  final onboardingViewmodel = locator<OnbordingViewModel>();
-  final inappViewmodel = locator<InappViewModel>();
+  final onboardingViewModel = locator<OnboardingViewModel>();
+  final inAppViewModel = locator<InAppViewModel>();
   final informationViewModel = locator<InformationViewModel>();
 
   @override
   initState() {
-    onboardingViewmodel.onbordingComlatedGet();
-    inappViewmodel.inappComplatedGet();
-    informationViewModel.informationComlatedGet();
+    onboardingViewModel.onboardingCompletedGet();
+    inAppViewModel.inAppCompletedGet();
+    informationViewModel.informationCompletedGet();
 
     super.initState();
   }
@@ -35,17 +34,17 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) {
-        if (onboardingViewmodel.isOnbordingComplated == true &&
-            inappViewmodel.isInappComplated == true &&
-            informationViewModel.isInformationComplated == true) {
+        if (onboardingViewModel.isOnboardingCompleted == true &&
+            inAppViewModel.isInAppCompleted == true &&
+            informationViewModel.isInformationCompleted == true) {
           return const HomeView();
-        } else if (onboardingViewmodel.isOnbordingComplated == true &&
-            inappViewmodel.isInappComplated == true) {
+        } else if (onboardingViewModel.isOnboardingCompleted == true &&
+            inAppViewModel.isInAppCompleted == true) {
           return const InformationView();
-        } else if (onboardingViewmodel.isOnbordingComplated == true) {
-          return const InappView();
+        } else if (onboardingViewModel.isOnboardingCompleted == true) {
+          return const InAppView();
         } else {
-          return const OnbordingView();
+          return const OnboardingView();
         }
       },
     );

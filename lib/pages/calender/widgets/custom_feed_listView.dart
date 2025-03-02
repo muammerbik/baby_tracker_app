@@ -1,4 +1,3 @@
-
 import 'package:baby_tracker/companents/custom_text/text_widget.dart';
 import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
@@ -8,6 +7,7 @@ import 'package:baby_tracker/pages/feeding/view/feeding_view.dart';
 import 'package:baby_tracker/pages/feeding/viewmodel/feeding_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomFeedListView extends StatefulWidget {
   const CustomFeedListView({super.key});
@@ -17,63 +17,61 @@ class CustomFeedListView extends StatefulWidget {
 }
 
 class _CustomFeedListViewState extends State<CustomFeedListView> {
-  final feedingViewmodel = locator<FeedingViewModel>();
+  final feedingViewModel = locator<FeedingViewModel>();
 
   @override
   Widget build(BuildContext context) {
     DeviceConfig().init(context);
     return Observer(
-      builder: (context) => feedingViewmodel.feedList.isNotEmpty
+      builder: (context) => feedingViewModel.feedList.isNotEmpty
           ? ListView.builder(
-              itemCount: feedingViewmodel.feedList.length,
+              itemCount: feedingViewModel.feedList.length,
               itemBuilder: (context, index) {
-                final list = feedingViewmodel.feedList[index];
+                final list = feedingViewModel.feedList[index];
                 return Dismissible(
                   direction: DismissDirection.startToEnd,
-                  background: const Row(children: [
-                    Icon(
-                      Icons.delete,
-                      color: red,
-                      size: 30,
+                  background: Row(children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      child: Icon(
+                        Icons.delete,
+                        color: red,
+                        size: 30.sp,
+                      ),
                     ),
                     TextWidgets(
                       text: delete,
-                      size: 20,
+                      size: 20.sp,
                       color: black,
                     )
                   ]),
                   key: UniqueKey(),
                   onDismissed: (direction) {
-                    feedingViewmodel.delete(list.id);
+                    feedingViewModel.delete(list.id);
                   },
                   child: GestureDetector(
                     onTap: () {
                       Navigation.push(
                         page: FeedingView(feedingModel: list),
                       );
-                      feedingViewmodel.selectedFeed = list;
+                      feedingViewModel.selectedFeed = list;
                     },
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: DeviceConfig.screenHeight! * 0.0109,
-                        horizontal: DeviceConfig.screenHeight! * 0.0200,
-                      ),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
                       child: Container(
                         width: double.infinity,
                         decoration: ShapeDecoration(
                           color: darkWhite,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
+                            borderRadius: BorderRadius.circular(25.r),
                           ),
                         ),
                         child: Column(
                           children: [
                             Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      DeviceConfig.screenWidth! * 0.0373,
-                                  vertical:
-                                      DeviceConfig.screenHeight! * 0.0107),
+                                  horizontal: 16.w, vertical: 16.h),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -82,67 +80,69 @@ class _CustomFeedListViewState extends State<CustomFeedListView> {
                                     children: [
                                       Image.asset(
                                         feedingIcon,
-                                        height:
-                                            DeviceConfig.screenHeight! * 0.0480,
+                                        height: 36.h,
                                         color: darkBlue,
                                       ),
-                                      const SizedBox(width: 5),
-                                      const TextWidgets(
+                                      SizedBox(width: 3.w),
+                                      TextWidgets(
                                         text: feeding,
-                                        size: 18,
+                                        size: 18.sp,
                                         color: darkBlue,
                                       )
                                     ],
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          DeviceConfig.screenWidth! * 0.044,
-                                    ),
-                                    child: TextWidgets(
-                                      text: list.time,
-                                      size: 16,
-                                      color: black,
-                                    ),
+                                  TextWidgets(
+                                    text: list.time,
+                                    size: 16.sp,
+                                    color: black,
                                   ),
                                 ],
                               ),
                             ),
                             const Divider(),
                             ListTile(
+                              contentPadding: EdgeInsets.only(left: 12.w),
                               title: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Image.asset(
                                     calenderImg,
                                     color: orange.shade800,
-                                    height: DeviceConfig.screenHeight! * 0.0451,
+                                    height: 42.h,
                                   ),
-                                  const Text(
+                                  SizedBox(
+                                    width: 6.w,
+                                  ),
+                                  Text(
                                     feedingNote,
-                                    style: TextStyle(fontSize: 20),
+                                    style: TextStyle(fontSize: 20.sp),
                                   ),
                                 ],
                               ),
                               trailing: IconButton(
                                   onPressed: () {
                                     setState(() {
-                                      feedingViewmodel
+                                      feedingViewModel
                                           .updateSelectedIndex(index);
                                     });
                                   },
                                   icon: Icon(
-                                    feedingViewmodel.selectedIndex == index
+                                    feedingViewModel.selectedIndex == index
                                         ? Icons.expand_less
                                         : Icons.expand_more,
                                   )),
                             ),
-                            if (feedingViewmodel.selectedIndex == index)
+                            if (feedingViewModel.selectedIndex == index)
                               Observer(
                                 builder: (context) => Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Text(
-                                    list.note,
-                                    style: const TextStyle(fontSize: 16),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20.w, vertical: 12.h),
+                                  child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      list.note,
+                                      style: TextStyle(fontSize: 16.sp),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -154,11 +154,12 @@ class _CustomFeedListViewState extends State<CustomFeedListView> {
                 );
               },
             )
-          : const Center(
+          : Center(
               child: TextWidgets(
-                text: feedingIsempty,
-                size: 18,
+                text: diaperIsempty,
+                size: 16.sp,
                 color: black,
+                fontWeight: FontWeight.w500,
               ),
             ),
     );

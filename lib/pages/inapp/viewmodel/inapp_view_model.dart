@@ -1,48 +1,57 @@
+import 'package:baby_tracker/companents/custom_snack_bar/custom_snack_bar.dart';
 import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
+import 'package:baby_tracker/pages/home/view/home_view.dart';
 import 'package:baby_tracker/pages/information/view/information_view.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 part 'inapp_view_model.g.dart';
 
-class InappViewModel = _InappViewModelBase with _$InappViewModel;
+class InAppViewModel = _InAppViewModelBase with _$InAppViewModel;
 
-abstract class _InappViewModelBase with Store {
+abstract class _InAppViewModelBase with Store {
   @observable
   int selectedButtonIndex = -1;
 
   @observable
-  bool isInappComplated = false;
+  bool isInAppCompleted = false;
 
   @action
-  Future<void> inappButtonTapped(BuildContext context) async {
-    await inappComplatedSet();
-    await inappComplatedGet();
-    if (selectedButtonIndex != -1 && isInappComplated) {
-      Navigation.push(
-        page: const InformationView(),
+  void selectPlan(int index) {
+    selectedButtonIndex = index;
+  }
+
+  @action
+  Future<void> inAppButtonTapped(BuildContext context) async {
+    if (selectedButtonIndex == -1) {
+      CustomSnackBar.show(
+        context: context,
+        message: snackBarText,
+        containerColor: Colors.red,
+        textColor: Colors.white,
       );
-    } else if (selectedButtonIndex == -1) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(snackbarMassageInaap),
-          duration: Duration(seconds: 2),
-        ),
-      );
+      return;
+    }
+
+    await inAppCompletedSet();
+    await inAppCompletedGet();
+
+    if (isInAppCompleted) {
+      Navigation.pushAndRemoveAll(page: const InformationView());
     }
   }
 
   @action
-  Future<void> inappComplatedSet() async {
+  Future<void> inAppCompletedSet() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    await pref.setBool("isInappComplated", true);
-    isInappComplated = true;
+    await pref.setBool("isInAppCompleted", true);
+    isInAppCompleted = true;
   }
 
   @action
-  Future<void> inappComplatedGet() async {
+  Future<void> inAppCompletedGet() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    isInappComplated = pref.getBool("isInappComplated") ?? false;
+    isInAppCompleted = pref.getBool("isInAppCompleted") ?? false;
   }
 }

@@ -7,9 +7,9 @@ import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 part 'calender_viewmodel.g.dart';
 
-class CalenderViewMoel = _CalenderViewMoelBase with _$CalenderViewMoel;
+class CalenderViewModel = _CalenderViewModelBase with _$CalenderViewModel;
 
-abstract class _CalenderViewMoelBase with Store {
+abstract class _CalenderViewModelBase with Store {
   final feedingViewmodel = locator<FeedingViewModel>();
   final diaperViewmodel = locator<DiaperViewModel>();
   final sleepViewmodel = locator<SleepViewModel>();

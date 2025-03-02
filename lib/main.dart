@@ -6,8 +6,9 @@ import 'package:baby_tracker/pages/main_view/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-//dart run build_runner build
+// dart run build_runner build
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
@@ -16,10 +17,11 @@ Future<void> main() async {
   setupGetIt();
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: cTransparent,
+    statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   ));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   runApp(const MyApp());
 }
 
@@ -28,17 +30,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: mTitle,
-        debugShowCheckedModeBanner: false,
-        navigatorKey: Navigation.navigationKey,
-        theme: ThemeData(
-          appBarTheme: const AppBarTheme(backgroundColor: white),
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: purple)
-              .copyWith(background: white)
-              .copyWith(background: white),
-        ),
-        home: const MainView());
+    return ScreenUtilInit(
+      designSize: const Size(393, 851),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          title: mTitle,
+          debugShowCheckedModeBanner: false,
+          navigatorKey: Navigation.navigationKey,
+          theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+              backgroundColor: white,
+            ),
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(seedColor: purple)
+                .copyWith(surface: Colors.white),
+          ),
+          home: const MainView(),
+        );
+      },
+    );
   }
 }

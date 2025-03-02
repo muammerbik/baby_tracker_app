@@ -8,26 +8,26 @@ part of 'onbording_viewmodel.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$OnbordingViewModel on _OnbordingViewModelBase, Store {
-  late final _$isOnbordingComplatedAtom = Atom(
-      name: '_OnbordingViewModelBase.isOnbordingComplated', context: context);
+mixin _$OnboardingViewModel on _OnboardingViewModelBase, Store {
+  late final _$isOnboardingCompletedAtom = Atom(
+      name: '_OnboardingViewModelBase.isOnboardingCompleted', context: context);
 
   @override
-  bool get isOnbordingComplated {
-    _$isOnbordingComplatedAtom.reportRead();
-    return super.isOnbordingComplated;
+  bool get isOnboardingCompleted {
+    _$isOnboardingCompletedAtom.reportRead();
+    return super.isOnboardingCompleted;
   }
 
   @override
-  set isOnbordingComplated(bool value) {
-    _$isOnbordingComplatedAtom.reportWrite(value, super.isOnbordingComplated,
+  set isOnboardingCompleted(bool value) {
+    _$isOnboardingCompletedAtom.reportWrite(value, super.isOnboardingCompleted,
         () {
-      super.isOnbordingComplated = value;
+      super.isOnboardingCompleted = value;
     });
   }
 
   late final _$pageControllerAtom =
-      Atom(name: '_OnbordingViewModelBase.pageController', context: context);
+      Atom(name: '_OnboardingViewModelBase.pageController', context: context);
 
   @override
   PageController get pageController {
@@ -43,7 +43,7 @@ mixin _$OnbordingViewModel on _OnbordingViewModelBase, Store {
   }
 
   late final _$currentIndexAtom =
-      Atom(name: '_OnbordingViewModelBase.currentIndex', context: context);
+      Atom(name: '_OnboardingViewModelBase.currentIndex', context: context);
 
   @override
   int get currentIndex {
@@ -59,7 +59,7 @@ mixin _$OnbordingViewModel on _OnbordingViewModelBase, Store {
   }
 
   late final _$notGoBackAtom =
-      Atom(name: '_OnbordingViewModelBase.notGoBack', context: context);
+      Atom(name: '_OnboardingViewModelBase.notGoBack', context: context);
 
   @override
   bool get notGoBack {
@@ -74,75 +74,75 @@ mixin _$OnbordingViewModel on _OnbordingViewModelBase, Store {
     });
   }
 
-  late final _$OnbordingListAtom =
-      Atom(name: '_OnbordingViewModelBase.OnbordingList', context: context);
+  late final _$OnboardingListAtom =
+      Atom(name: '_OnboardingViewModelBase.OnboardingList', context: context);
 
   @override
-  List<OnbordingModel> get OnbordingList {
-    _$OnbordingListAtom.reportRead();
-    return super.OnbordingList;
+  List<OnboardingModel> get OnboardingList {
+    _$OnboardingListAtom.reportRead();
+    return super.OnboardingList;
   }
 
   @override
-  set OnbordingList(List<OnbordingModel> value) {
-    _$OnbordingListAtom.reportWrite(value, super.OnbordingList, () {
-      super.OnbordingList = value;
+  set OnboardingList(List<OnboardingModel> value) {
+    _$OnboardingListAtom.reportWrite(value, super.OnboardingList, () {
+      super.OnboardingList = value;
     });
   }
 
-  late final _$onbordingComplatedSetAsyncAction = AsyncAction(
-      '_OnbordingViewModelBase.onbordingComplatedSet',
+  late final _$onboardingCompletedSetAsyncAction = AsyncAction(
+      '_OnboardingViewModelBase.onboardingCompletedSet',
       context: context);
 
   @override
-  Future<void> onbordingComplatedSet() {
-    return _$onbordingComplatedSetAsyncAction
-        .run(() => super.onbordingComplatedSet());
+  Future<void> onboardingCompletedSet() {
+    return _$onboardingCompletedSetAsyncAction
+        .run(() => super.onboardingCompletedSet());
   }
 
-  late final _$onbordingComlatedGetAsyncAction = AsyncAction(
-      '_OnbordingViewModelBase.onbordingComlatedGet',
+  late final _$onboardingCompletedGetAsyncAction = AsyncAction(
+      '_OnboardingViewModelBase.onboardingCompletedGet',
       context: context);
 
   @override
-  Future<void> onbordingComlatedGet() {
-    return _$onbordingComlatedGetAsyncAction
-        .run(() => super.onbordingComlatedGet());
+  Future<void> onboardingCompletedGet() {
+    return _$onboardingCompletedGetAsyncAction
+        .run(() => super.onboardingCompletedGet());
   }
 
-  late final _$_OnbordingViewModelBaseActionController =
-      ActionController(name: '_OnbordingViewModelBase', context: context);
+  late final _$_OnboardingViewModelBaseActionController =
+      ActionController(name: '_OnboardingViewModelBase', context: context);
 
   @override
   void onPageChanged(int value) {
-    final _$actionInfo = _$_OnbordingViewModelBaseActionController.startAction(
-        name: '_OnbordingViewModelBase.onPageChanged');
+    final _$actionInfo = _$_OnboardingViewModelBaseActionController.startAction(
+        name: '_OnboardingViewModelBase.onPageChanged');
     try {
       return super.onPageChanged(value);
     } finally {
-      _$_OnbordingViewModelBaseActionController.endAction(_$actionInfo);
+      _$_OnboardingViewModelBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void continueButtonTapped() {
-    final _$actionInfo = _$_OnbordingViewModelBaseActionController.startAction(
-        name: '_OnbordingViewModelBase.continueButtonTapped');
+    final _$actionInfo = _$_OnboardingViewModelBaseActionController.startAction(
+        name: '_OnboardingViewModelBase.continueButtonTapped');
     try {
       return super.continueButtonTapped();
     } finally {
-      _$_OnbordingViewModelBaseActionController.endAction(_$actionInfo);
+      _$_OnboardingViewModelBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   String toString() {
     return '''
-isOnbordingComplated: ${isOnbordingComplated},
+isOnboardingCompleted: ${isOnboardingCompleted},
 pageController: ${pageController},
 currentIndex: ${currentIndex},
 notGoBack: ${notGoBack},
-OnbordingList: ${OnbordingList}
+OnboardingList: ${OnboardingList}
     ''';
   }
 }
