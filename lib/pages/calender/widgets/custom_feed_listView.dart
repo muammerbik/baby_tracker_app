@@ -1,7 +1,7 @@
-import 'package:baby_tracker/companents/custom_text/text_widget.dart';
-import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
+
+import 'package:baby_tracker/components/custom_text/text_widget.dart';
+import 'package:baby_tracker/components/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
-import 'package:baby_tracker/constants/device_config.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/feeding/view/feeding_view.dart';
 import 'package:baby_tracker/pages/feeding/viewmodel/feeding_viewmodel.dart';
@@ -21,7 +21,7 @@ class _CustomFeedListViewState extends State<CustomFeedListView> {
 
   @override
   Widget build(BuildContext context) {
-    DeviceConfig().init(context);
+  
     return Observer(
       builder: (context) => feedingViewModel.feedList.isNotEmpty
           ? ListView.builder(

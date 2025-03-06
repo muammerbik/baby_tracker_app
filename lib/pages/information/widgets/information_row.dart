@@ -1,4 +1,3 @@
-import 'package:baby_tracker/constants/device_config.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/information/viewmodel/information_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ class _InformationRowState extends State<InformationRow> {
   final informationViewModel = locator<InformationViewModel>();
   @override
   Widget build(BuildContext context) {
-    DeviceConfig().init(context);
+  
     return Observer(
       builder: (context) => Row(
         mainAxisAlignment: MainAxisAlignment.center,

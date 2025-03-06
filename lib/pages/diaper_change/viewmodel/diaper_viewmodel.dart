@@ -1,7 +1,6 @@
 
-import 'package:baby_tracker/companents/custom_button/custom_alert_dialog.dart';
-import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
-import 'package:baby_tracker/core/hive.dart';
+import 'package:baby_tracker/components/custom_button/custom_alert_dialog.dart';
+import 'package:baby_tracker/components/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/data/local_data/diaper_local_storage.dart';
 import 'package:baby_tracker/data/models/diaper_change_model.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
@@ -17,13 +16,13 @@ enum DiaperStatus { Wet, Dirty, Mixed, Dry }
 class DiaperViewModel = _DiaperViewModelBase with _$DiaperViewModel;
 
 abstract class _DiaperViewModelBase with Store {
-  final diaperStoragee = locator<DiaperLocalStorageHive>();
+  final diaperStorage = locator<DiaperLocalStorageHive>();
 
   _DiaperViewModelBase() {
     reaction(
       (_) => selectedStatus,
       (DiaperStatus? status) {
-        upDateButtonstatus();
+        updateButtonStatus();
       },
     );
     init();
@@ -70,7 +69,7 @@ abstract class _DiaperViewModelBase with Store {
   }
 
   @action
-  void upDateButtonstatus() {
+  void updateButtonStatus() {
     isButtonEnabledDiaper = statusButtonTapped();
   }
 
@@ -122,7 +121,7 @@ abstract class _DiaperViewModelBase with Store {
           diaperStatus: selectedStatus!.index.toString(),
           note: diaperNoteController.text);
 
-      await diaperStoragee.addDiaper(diaperChangeModel: diaperModel);
+      await diaperStorage.addDiaper(diaperChangeModel: diaperModel);
       add(diaperModel);
     } catch (e) {
       debugPrint(e.toString());
@@ -132,7 +131,7 @@ abstract class _DiaperViewModelBase with Store {
   @action
   Future<void> getAll() async {
     diaperList.clear();
-    var data = await diaperStoragee.getAllDiaper();
+    var data = await diaperStorage.getAllDiaper();
     diaperList.addAll(data);
   }
 
@@ -141,7 +140,7 @@ abstract class _DiaperViewModelBase with Store {
     try {
       DiaperChangeModel diaperToDelete =
           diaperList.firstWhere((feed) => feed.id == id);
-      await diaperStoragee.deleteDiaper(diaperChangeModel: diaperToDelete);
+      await diaperStorage.deleteDiaper(diaperChangeModel: diaperToDelete);
       diaperList.remove(diaperToDelete);
     } catch (e) {
       debugPrint(
@@ -158,7 +157,7 @@ abstract class _DiaperViewModelBase with Store {
       diaperToUpdate.time = diaperTimeController.text;
       diaperToUpdate.diaperStatus = selectedStatus!.index.toString();
       diaperToUpdate.note = diaperNoteController.text;
-      await diaperStoragee.upDateDiaper(diaperChangeModel: diaperToUpdate);
+      await diaperStorage.upDateDiaper(diaperChangeModel: diaperToUpdate);
       diaperList = List.from(diaperList);
     } catch (e) {
       debugPrint(

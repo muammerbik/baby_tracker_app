@@ -1,3 +1,4 @@
+import 'package:baby_tracker/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,7 +7,7 @@ class CustomSnackBar {
     required BuildContext context,
     required String message,
     Color containerColor = Colors.black,
-    Color textColor = Colors.white,
+    Color textColor = white,
     Duration duration = const Duration(seconds: 2),
   }) {
     final snackBar = SnackBar(

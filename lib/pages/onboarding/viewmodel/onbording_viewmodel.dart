@@ -1,4 +1,4 @@
-import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
+import 'package:baby_tracker/components/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
 import 'package:baby_tracker/pages/inapp/view/inapp_view.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,7 @@ abstract class _OnboardingViewModelBase with Store {
 
   @action
   void continueButtonTapped() {
-    if (currentIndex == OnboardingList.length - 1) {
+    if (currentIndex == onboardingList.length - 1) {
       onboardingCompletedSet();
       Navigation.push(page: const InAppView());
     }
@@ -51,7 +51,7 @@ abstract class _OnboardingViewModelBase with Store {
 
 
   @observable
-  List<OnboardingModel> OnboardingList = [
+  List<OnboardingModel> onboardingList = [
     OnboardingModel(
       img: onboardingImg1,
       title: onboardingTitle1,

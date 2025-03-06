@@ -211,11 +211,11 @@ mixin _$DiaperViewModel on _DiaperViewModelBase, Store {
   }
 
   @override
-  void upDateButtonstatus() {
+  void updateButtonStatus() {
     final _$actionInfo = _$_DiaperViewModelBaseActionController.startAction(
-        name: '_DiaperViewModelBase.upDateButtonstatus');
+        name: '_DiaperViewModelBase.updateButtonStatus');
     try {
-      return super.upDateButtonstatus();
+      return super.updateButtonStatus();
     } finally {
       _$_DiaperViewModelBaseActionController.endAction(_$actionInfo);
     }

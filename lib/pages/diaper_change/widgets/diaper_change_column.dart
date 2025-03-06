@@ -1,6 +1,5 @@
-import 'package:baby_tracker/companents/custom_text/text_widget.dart';
+import 'package:baby_tracker/components/custom_text/text_widget.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
-import 'package:baby_tracker/constants/device_config.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/diaper_change/viewmodel/diaper_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +14,10 @@ class DiaperChangeColumn extends StatefulWidget {
 }
 
 class _DiaperChangeColumnState extends State<DiaperChangeColumn> {
-  final diaperViewmodel = locator<DiaperViewModel>();
+  final diaperViewModel = locator<DiaperViewModel>();
 
   @override
   Widget build(BuildContext context) {
-    DeviceConfig().init(context);
     return Observer(
       builder: (context) => Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
@@ -48,12 +46,12 @@ class _DiaperChangeColumnState extends State<DiaperChangeColumn> {
   }
 
   Widget diaperStatusRow(DiaperStatus status, String imagePath, String text) {
-    bool isSelected = diaperViewmodel.selectedStatus == status;
+    bool isSelected = diaperViewModel.selectedStatus == status;
 
     return Observer(
       builder: (context) => InkWell(
         onTap: () async {
-          diaperViewmodel.selectedStatus = isSelected ? null : status;
+          diaperViewModel.selectedStatus = isSelected ? null : status;
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,

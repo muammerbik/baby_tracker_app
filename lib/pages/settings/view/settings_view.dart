@@ -1,6 +1,5 @@
-import 'package:baby_tracker/companents/custom_app_bar/custom_app_bar.dart';
+import 'package:baby_tracker/components/custom_app_bar/custom_app_bar.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
-import 'package:baby_tracker/constants/device_config.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/settings/viewmodel/settings_viewmodel.dart';
 import 'package:baby_tracker/pages/settings/widgets/settings_button.dart';
@@ -19,7 +18,7 @@ class _SettingsViewState extends State<SettingsView> {
 
   @override
   Widget build(BuildContext context) {
-    DeviceConfig().init(context);
+
     return Scaffold(
       appBar: const CustomAppBarView(
         appBarTitle: settings,
@@ -35,7 +34,7 @@ class _SettingsViewState extends State<SettingsView> {
             children: [
               CustomSettingsButton(
                 leadingIcon: settingsImg1,
-                title: getPremiumm,
+                title: getPremium,
               ),
               CustomSettingsButton(
                 leadingIcon: settingsImg2,
@@ -43,11 +42,11 @@ class _SettingsViewState extends State<SettingsView> {
               ),
               CustomSettingsButton(
                 leadingIcon: settingsImg3,
-                title: termsofUse,
+                title: termsOfUse,
               ),
               CustomSettingsButton(
                 leadingIcon: settingsImg4,
-                title: privaryPolicy,
+                title: privacyPolicy,
               ),
               CustomSettingsButton(
                 leadingIcon: settingsImg5,

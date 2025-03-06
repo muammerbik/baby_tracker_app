@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:baby_tracker/companents/custom_button/custom_alert_dialog.dart';
-import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
+import 'package:baby_tracker/components/custom_button/custom_alert_dialog.dart';
+import 'package:baby_tracker/components/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
 import 'package:baby_tracker/core/hive.dart';
 import 'package:baby_tracker/data/local_data/information_local_storage.dart';
@@ -33,7 +33,7 @@ abstract class _InformationViewModelBase with Store {
   @observable
   TextEditingController birthDateController = TextEditingController();
   @observable
-  TextEditingController timeofBirthController = TextEditingController();
+  TextEditingController timeOfBirthController = TextEditingController();
   @observable
   TextEditingController dueDateController = TextEditingController();
   @observable
@@ -62,6 +62,8 @@ abstract class _InformationViewModelBase with Store {
     isGirl = false;
   }
 
+  
+
   @action
   Future<void> informationCompletedSet() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -69,18 +71,22 @@ abstract class _InformationViewModelBase with Store {
     isInformationCompleted = true;
   }
 
+
+
   @action
   Future<void> informationCompletedGet() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     isInformationCompleted = pref.getBool("isInformationCompleted") ?? false;
   }
 
+
+
   @action
   Future<void> isInfoButtonTapped(BuildContext context, String pathh) async {
     if (pathh != null &&
         nameController.text.isNotEmpty &&
         birthDateController.text.isNotEmpty &&
-        timeofBirthController.text.isNotEmpty &&
+        timeOfBirthController.text.isNotEmpty &&
         dueDateController.text.isNotEmpty &&
         imageFile != null) {
       if (selectedInformation != null) {
@@ -101,6 +107,8 @@ abstract class _InformationViewModelBase with Store {
     }
   }
 
+
+
   @action
   Future<void> addInformation() async {
     try {
@@ -117,7 +125,7 @@ abstract class _InformationViewModelBase with Store {
         cinsiyet: isGirl ?? false,
         fullName: nameController.text,
         birthDate: DateFormat('yyyy-MM-dd').format(parsedBirthDate),
-        timeOfBirth: timeofBirthController.text,
+        timeOfBirth: timeOfBirthController.text,
         dueDate: dueDateController.text,
       );
       await informationBox.clear();
@@ -127,13 +135,15 @@ abstract class _InformationViewModelBase with Store {
     }
   }
 
+
+
   @action
   Future<void> upDate() async {
     try {
       selectedInformation!.cinsiyet = isGirl!;
       selectedInformation!.fullName = nameController.text;
       selectedInformation!.birthDate = birthDateController.text;
-      selectedInformation!.timeOfBirth = timeofBirthController.text;
+      selectedInformation!.timeOfBirth = timeOfBirthController.text;
       selectedInformation!.dueDate = dueDateController.text;
 
       if (imageFile != null) {
@@ -150,6 +160,8 @@ abstract class _InformationViewModelBase with Store {
     }
   }
 
+
+
   @action
   Future<Uint8List> _readFileAsBytes(String filePath) async {
     try {
@@ -162,6 +174,8 @@ abstract class _InformationViewModelBase with Store {
     }
   }
 
+
+
   @action
   Future<void> loadInformation() async {
     if (informationBox.isNotEmpty) {
@@ -171,10 +185,12 @@ abstract class _InformationViewModelBase with Store {
       imageFile = File(lastInformation.img!);
       isGirl = lastInformation.cinsiyet;
       birthDateController.text = lastInformation.birthDate;
-      timeofBirthController.text = lastInformation.timeOfBirth;
+      timeOfBirthController.text = lastInformation.timeOfBirth;
       dueDateController.text = lastInformation.dueDate;
     }
   }
+
+
 
   @action
   Future<void> selectTime(
@@ -188,6 +204,8 @@ abstract class _InformationViewModelBase with Store {
       controller.text = picked.format(context);
     }
   }
+
+
 
   @action
   Future<void> selectDate(
@@ -206,6 +224,8 @@ abstract class _InformationViewModelBase with Store {
     }
   }
 
+
+
   @action
   imgFromGallery() async {
     await picker.pickImage(source: ImageSource.gallery, imageQuality: 50).then(
@@ -217,6 +237,8 @@ abstract class _InformationViewModelBase with Store {
     );
   }
 
+
+
   @action
   imgFromCamera() async {
     await picker.pickImage(source: ImageSource.camera, imageQuality: 50).then(
@@ -227,6 +249,8 @@ abstract class _InformationViewModelBase with Store {
       },
     );
   }
+
+
 
   @action
   cropImage(File imgFile) async {
@@ -270,6 +294,8 @@ abstract class _InformationViewModelBase with Store {
       imageFile = File(croppedFile.path);
     }
   }
+
+
    String calculateAge(String birthDate) {
     try {
       DateTime birthDateTime = DateFormat('dd/MM/yyyy').parse(birthDate);

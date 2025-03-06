@@ -1,4 +1,4 @@
-import 'package:baby_tracker/companents/custom_text/text_widget.dart';
+import 'package:baby_tracker/components/custom_text/text_widget.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

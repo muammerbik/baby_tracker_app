@@ -1,6 +1,6 @@
 
-import 'package:baby_tracker/companents/custom_button/custom_alert_dialog.dart';
-import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
+import 'package:baby_tracker/components/custom_button/custom_alert_dialog.dart';
+import 'package:baby_tracker/components/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/data/local_data/feeding_local_storage.dart';
 import 'package:baby_tracker/data/models/feeding_model.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
@@ -103,13 +103,13 @@ abstract class _FeedingViewModelBase with Store {
   @action
   Future<void> addFeeding() async {
     try {
-      var feedmodel = FeedingModel(
+      var feedModel = FeedingModel(
           id: const Uuid().v1(),
           time: timeController.text,
           amount: int.tryParse(mlController.text),
           note: noteController.text);
-      await feedingStorage.addFeeding(feedingModel: feedmodel);
-      add(feedmodel);
+      await feedingStorage.addFeeding(feedingModel: feedModel);
+      add(feedModel);
     } catch (e) {
       debugPrint(
         e.toString(),

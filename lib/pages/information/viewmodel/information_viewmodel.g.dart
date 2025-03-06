@@ -41,21 +41,21 @@ mixin _$InformationViewModel on _InformationViewModelBase, Store {
     });
   }
 
-  late final _$timeofBirthControllerAtom = Atom(
-      name: '_InformationViewModelBase.timeofBirthController',
+  late final _$timeOfBirthControllerAtom = Atom(
+      name: '_InformationViewModelBase.timeOfBirthController',
       context: context);
 
   @override
-  TextEditingController get timeofBirthController {
-    _$timeofBirthControllerAtom.reportRead();
-    return super.timeofBirthController;
+  TextEditingController get timeOfBirthController {
+    _$timeOfBirthControllerAtom.reportRead();
+    return super.timeOfBirthController;
   }
 
   @override
-  set timeofBirthController(TextEditingController value) {
-    _$timeofBirthControllerAtom.reportWrite(value, super.timeofBirthController,
+  set timeOfBirthController(TextEditingController value) {
+    _$timeOfBirthControllerAtom.reportWrite(value, super.timeOfBirthController,
         () {
-      super.timeofBirthController = value;
+      super.timeOfBirthController = value;
     });
   }
 
@@ -304,7 +304,7 @@ mixin _$InformationViewModel on _InformationViewModelBase, Store {
     return '''
 nameController: ${nameController},
 birthDateController: ${birthDateController},
-timeofBirthController: ${timeofBirthController},
+timeOfBirthController: ${timeOfBirthController},
 dueDateController: ${dueDateController},
 isInformationCompleted: ${isInformationCompleted},
 imageFile: ${imageFile},

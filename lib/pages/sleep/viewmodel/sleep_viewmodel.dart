@@ -1,7 +1,6 @@
 
-import 'package:baby_tracker/companents/custom_button/custom_alert_dialog.dart';
-import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
-import 'package:baby_tracker/core/hive.dart';
+import 'package:baby_tracker/components/custom_button/custom_alert_dialog.dart';
+import 'package:baby_tracker/components/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/data/local_data/sleep_local_storage.dart';
 import 'package:baby_tracker/data/models/sleeep_model.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
@@ -23,13 +22,13 @@ abstract class _SleepViewModelBase with Store {
   @observable
   TextEditingController sleepFellController = TextEditingController();
   @observable
-  TextEditingController sleepWakeupController = TextEditingController();
+  TextEditingController sleepWakeUpController = TextEditingController();
   @observable
   TextEditingController sleepNoteController = TextEditingController();
   @observable
   List<SleepModel> sleepList = [];
   @observable
-  SleepModel? selectedSlep;
+  SleepModel? selectedSleep;
   @observable
   bool isButtonEnabledSleep = false;
   @observable
@@ -51,39 +50,39 @@ abstract class _SleepViewModelBase with Store {
 
   @action
   void updateButtonStatusSleep() {
-    isButtonEnabledSleep = isFiildsFeel();
+    isButtonEnabledSleep = isFieldsFilled();
   }
 
   @action
-  bool isFiildsFeel() {
+  bool isFieldsFilled() {
     return sleepFellController.text.isNotEmpty &&
-        sleepWakeupController.text.isNotEmpty &&
+        sleepWakeUpController.text.isNotEmpty &&
         sleepNoteController.text.isNotEmpty;
   }
 
   @action
-  void add(SleepModel slepMoel) {
-    sleepList = List.from(sleepList)..insert(0, slepMoel);
+  void add(SleepModel sleepModel) {
+    sleepList = List.from(sleepList)..insert(0, sleepModel);
   }
 
   @action
-  void clearControlersSleep() {
+  void clearControllersSleep() {
     sleepFellController.clear();
-    sleepWakeupController.clear();
+    sleepWakeUpController.clear();
     sleepNoteController.clear();
   }
 
   @action
   Future<void> isSleepButtonTapped(BuildContext context) async {
     if (isButtonEnabledSleep) {
-      if (selectedSlep == null) {
+      if (selectedSleep == null) {
         await addSleep();
       } else {
-        upDate(selectedSlep!.id);
+        upDate(selectedSleep!.id);
       }
 
       Navigation.push(page: const HomeView());
-      clearControlersSleep();
+      clearControllersSleep();
     } else {
       showDialog(
         context: context,
@@ -95,9 +94,10 @@ abstract class _SleepViewModelBase with Store {
   }
 
   @action
-  SleepModel getItemSlep(String id) {
+  SleepModel getItemSleep(String id) {
     return sleepList.firstWhere((feed) => feed.id == id);
   }
+
 
   @action
   Future<void> addSleep() async {
@@ -105,7 +105,7 @@ abstract class _SleepViewModelBase with Store {
       var sleepModel = SleepModel(
           id: const Uuid().v1(),
           fellSleep: sleepFellController.text,
-          wakeUp: sleepWakeupController.text,
+          wakeUp: sleepWakeUpController.text,
           note: sleepNoteController.text);
       await sleepStorage.addSleep(sleepModel: sleepModel);
       add(sleepModel);
@@ -116,12 +116,14 @@ abstract class _SleepViewModelBase with Store {
     }
   }
 
+
   @action
   Future<void> getAll() async {
     sleepList.clear();
     var data = await sleepStorage.getAllSSleep();
     sleepList.addAll(data);
   }
+
 
   @action
   Future<void> delete(String id) async {
@@ -136,12 +138,13 @@ abstract class _SleepViewModelBase with Store {
     }
   }
 
+
   @action
   Future<void> upDate(String id) async {
     try {
       SleepModel sleepToUpdate = sleepList.firstWhere((feed) => feed.id == id);
       sleepToUpdate.fellSleep = sleepFellController.text;
-      sleepToUpdate.wakeUp = sleepWakeupController.text;
+      sleepToUpdate.wakeUp = sleepWakeUpController.text;
       sleepToUpdate.note = sleepNoteController.text;
       await sleepStorage.upDateSleep(sleepModel: sleepToUpdate);
       sleepList = List.from(sleepList);

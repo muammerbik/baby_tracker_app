@@ -1,7 +1,7 @@
-import 'package:baby_tracker/companents/custom_text/text_widget.dart';
-import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
+
+import 'package:baby_tracker/components/custom_text/text_widget.dart';
+import 'package:baby_tracker/components/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
-import 'package:baby_tracker/constants/device_config.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/sleep/view/sleep_view.dart';
 import 'package:baby_tracker/pages/sleep/viewmodel/sleep_viewmodel.dart';
@@ -21,7 +21,6 @@ class _CustomSleepListViewState extends State<CustomSleepListView> {
 
   @override
   Widget build(BuildContext context) {
-    DeviceConfig().init(context);
     return sleepViewModel.sleepList.isNotEmpty
         ? ListView.builder(
             itemCount: sleepViewModel.sleepList.length,
@@ -53,7 +52,7 @@ class _CustomSleepListViewState extends State<CustomSleepListView> {
                     Navigation.push(
                       page: SleepView(sleepModel: list),
                     );
-                    sleepViewModel.selectedSlep = list;
+                    sleepViewModel.selectedSleep = list;
                   },
                   child: Padding(
                     padding:

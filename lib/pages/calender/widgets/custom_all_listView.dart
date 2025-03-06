@@ -1,7 +1,7 @@
-import 'package:baby_tracker/companents/custom_text/text_widget.dart';
-import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
+
+import 'package:baby_tracker/components/custom_text/text_widget.dart';
+import 'package:baby_tracker/components/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
-import 'package:baby_tracker/constants/device_config.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/calender/viewmodel/calender_viewmodel.dart';
 import 'package:baby_tracker/pages/diaper_change/view/diaper_change_view.dart';
@@ -29,7 +29,7 @@ class _CustomAllListViewState extends State<CustomAllListView> {
 
   @override
   Widget build(BuildContext context) {
-    DeviceConfig().init(context);
+
     return Observer(
       builder: (context) => Center(
         child: calenderViewModel.mergedList.isNotEmpty
@@ -90,11 +90,11 @@ class _CustomAllListViewState extends State<CustomAllListView> {
                         } else {
                           Navigation.push(
                             page: SleepView(
-                              sleepModel: sleepViewModel.getItemSlep(item.id),
+                              sleepModel: sleepViewModel.getItemSleep(item.id),
                             ),
                           );
 
-                          sleepViewModel.selectedSlep =
+                          sleepViewModel.selectedSleep =
                               sleepViewModel.sleepList[index];
                         }
                       },

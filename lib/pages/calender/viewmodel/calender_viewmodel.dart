@@ -10,9 +10,9 @@ part 'calender_viewmodel.g.dart';
 class CalenderViewModel = _CalenderViewModelBase with _$CalenderViewModel;
 
 abstract class _CalenderViewModelBase with Store {
-  final feedingViewmodel = locator<FeedingViewModel>();
-  final diaperViewmodel = locator<DiaperViewModel>();
-  final sleepViewmodel = locator<SleepViewModel>();
+  final feedingViewModel = locator<FeedingViewModel>();
+  final diaperViewModel = locator<DiaperViewModel>();
+  final sleepViewModel = locator<SleepViewModel>();
 
   @observable
   List<FeedItem> mergedList = [];
@@ -29,7 +29,6 @@ abstract class _CalenderViewModelBase with Store {
     }
   }
 
-  // all alanında notları yazarken type'ın ilk değerini büyütüp yanına Note ekledim (Feeding Note)
   @action
   String capitalizeWithSuffix(String text, String suffix) {
     if (text.isEmpty) {
@@ -38,11 +37,10 @@ abstract class _CalenderViewModelBase with Store {
     return text[0].toUpperCase() + text.substring(1) + suffix;
   }
 
-//günlük olarak traih değerini veren fonksiyon
   @action
   String getFormattedDate(DateTime date) {
-    final dayFormat = DateFormat('E'); // Gün adını al
-    final dateFormat = DateFormat('d MMMM y'); // Tarihi al
+    final dayFormat = DateFormat('E');
+    final dateFormat = DateFormat('d MMMM y');
 
     final day = dayFormat.format(date);
     final formattedDate = dateFormat.format(date);
@@ -55,7 +53,7 @@ abstract class _CalenderViewModelBase with Store {
     mergedList.clear();
     mergedList.insertAll(
         0,
-        feedingViewmodel.feedList.map((feeding) => FeedItem(
+        feedingViewModel.feedList.map((feeding) => FeedItem(
               id: feeding.id,
               type: "feeding",
               date: feeding.time,
@@ -66,7 +64,7 @@ abstract class _CalenderViewModelBase with Store {
             )));
     mergedList.insertAll(
         0,
-        diaperViewmodel.diaperList.map((diaper) => FeedItem(
+        diaperViewModel.diaperList.map((diaper) => FeedItem(
               id: diaper.id,
               type: "diaper",
               date: diaper.time,
@@ -77,7 +75,7 @@ abstract class _CalenderViewModelBase with Store {
             )));
     mergedList.insertAll(
         0,
-        sleepViewmodel.sleepList.map((sleep) => FeedItem(
+        sleepViewModel.sleepList.map((sleep) => FeedItem(
               id: sleep.id,
               type: "sleep",
               date: sleep.wakeUp,

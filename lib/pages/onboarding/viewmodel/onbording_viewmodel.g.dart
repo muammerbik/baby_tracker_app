@@ -74,19 +74,19 @@ mixin _$OnboardingViewModel on _OnboardingViewModelBase, Store {
     });
   }
 
-  late final _$OnboardingListAtom =
-      Atom(name: '_OnboardingViewModelBase.OnboardingList', context: context);
+  late final _$onboardingListAtom =
+      Atom(name: '_OnboardingViewModelBase.onboardingList', context: context);
 
   @override
-  List<OnboardingModel> get OnboardingList {
-    _$OnboardingListAtom.reportRead();
-    return super.OnboardingList;
+  List<OnboardingModel> get onboardingList {
+    _$onboardingListAtom.reportRead();
+    return super.onboardingList;
   }
 
   @override
-  set OnboardingList(List<OnboardingModel> value) {
-    _$OnboardingListAtom.reportWrite(value, super.OnboardingList, () {
-      super.OnboardingList = value;
+  set onboardingList(List<OnboardingModel> value) {
+    _$onboardingListAtom.reportWrite(value, super.onboardingList, () {
+      super.onboardingList = value;
     });
   }
 
@@ -142,7 +142,7 @@ isOnboardingCompleted: ${isOnboardingCompleted},
 pageController: ${pageController},
 currentIndex: ${currentIndex},
 notGoBack: ${notGoBack},
-OnboardingList: ${OnboardingList}
+onboardingList: ${onboardingList}
     ''';
   }
 }

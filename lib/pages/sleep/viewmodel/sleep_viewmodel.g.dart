@@ -25,20 +25,20 @@ mixin _$SleepViewModel on _SleepViewModelBase, Store {
     });
   }
 
-  late final _$sleepWakeupControllerAtom =
-      Atom(name: '_SleepViewModelBase.sleepWakeupController', context: context);
+  late final _$sleepWakeUpControllerAtom =
+      Atom(name: '_SleepViewModelBase.sleepWakeUpController', context: context);
 
   @override
-  TextEditingController get sleepWakeupController {
-    _$sleepWakeupControllerAtom.reportRead();
-    return super.sleepWakeupController;
+  TextEditingController get sleepWakeUpController {
+    _$sleepWakeUpControllerAtom.reportRead();
+    return super.sleepWakeUpController;
   }
 
   @override
-  set sleepWakeupController(TextEditingController value) {
-    _$sleepWakeupControllerAtom.reportWrite(value, super.sleepWakeupController,
+  set sleepWakeUpController(TextEditingController value) {
+    _$sleepWakeUpControllerAtom.reportWrite(value, super.sleepWakeUpController,
         () {
-      super.sleepWakeupController = value;
+      super.sleepWakeUpController = value;
     });
   }
 
@@ -74,19 +74,19 @@ mixin _$SleepViewModel on _SleepViewModelBase, Store {
     });
   }
 
-  late final _$selectedSlepAtom =
-      Atom(name: '_SleepViewModelBase.selectedSlep', context: context);
+  late final _$selectedSleepAtom =
+      Atom(name: '_SleepViewModelBase.selectedSleep', context: context);
 
   @override
-  SleepModel? get selectedSlep {
-    _$selectedSlepAtom.reportRead();
-    return super.selectedSlep;
+  SleepModel? get selectedSleep {
+    _$selectedSleepAtom.reportRead();
+    return super.selectedSleep;
   }
 
   @override
-  set selectedSlep(SleepModel? value) {
-    _$selectedSlepAtom.reportWrite(value, super.selectedSlep, () {
-      super.selectedSlep = value;
+  set selectedSleep(SleepModel? value) {
+    _$selectedSleepAtom.reportWrite(value, super.selectedSleep, () {
+      super.selectedSleep = value;
     });
   }
 
@@ -198,44 +198,44 @@ mixin _$SleepViewModel on _SleepViewModelBase, Store {
   }
 
   @override
-  bool isFiildsFeel() {
+  bool isFieldsFilled() {
     final _$actionInfo = _$_SleepViewModelBaseActionController.startAction(
-        name: '_SleepViewModelBase.isFiildsFeel');
+        name: '_SleepViewModelBase.isFieldsFilled');
     try {
-      return super.isFiildsFeel();
+      return super.isFieldsFilled();
     } finally {
       _$_SleepViewModelBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void add(SleepModel slepMoel) {
+  void add(SleepModel sleepModel) {
     final _$actionInfo = _$_SleepViewModelBaseActionController.startAction(
         name: '_SleepViewModelBase.add');
     try {
-      return super.add(slepMoel);
+      return super.add(sleepModel);
     } finally {
       _$_SleepViewModelBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void clearControlersSleep() {
+  void clearControllersSleep() {
     final _$actionInfo = _$_SleepViewModelBaseActionController.startAction(
-        name: '_SleepViewModelBase.clearControlersSleep');
+        name: '_SleepViewModelBase.clearControllersSleep');
     try {
-      return super.clearControlersSleep();
+      return super.clearControllersSleep();
     } finally {
       _$_SleepViewModelBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  SleepModel getItemSlep(String id) {
+  SleepModel getItemSleep(String id) {
     final _$actionInfo = _$_SleepViewModelBaseActionController.startAction(
-        name: '_SleepViewModelBase.getItemSlep');
+        name: '_SleepViewModelBase.getItemSleep');
     try {
-      return super.getItemSlep(id);
+      return super.getItemSleep(id);
     } finally {
       _$_SleepViewModelBaseActionController.endAction(_$actionInfo);
     }
@@ -245,10 +245,10 @@ mixin _$SleepViewModel on _SleepViewModelBase, Store {
   String toString() {
     return '''
 sleepFellController: ${sleepFellController},
-sleepWakeupController: ${sleepWakeupController},
+sleepWakeUpController: ${sleepWakeUpController},
 sleepNoteController: ${sleepNoteController},
 sleepList: ${sleepList},
-selectedSlep: ${selectedSlep},
+selectedSleep: ${selectedSleep},
 isButtonEnabledSleep: ${isButtonEnabledSleep},
 sleepSelectIndex: ${sleepSelectIndex}
     ''';

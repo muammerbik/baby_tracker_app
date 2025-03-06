@@ -1,9 +1,8 @@
 import 'dart:io';
-import 'package:baby_tracker/companents/custom_app_bar/custom_app_bar.dart';
-import 'package:baby_tracker/companents/custom_text/text_widget.dart';
-import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
+import 'package:baby_tracker/components/custom_app_bar/custom_app_bar.dart';
+import 'package:baby_tracker/components/custom_text/text_widget.dart';
+import 'package:baby_tracker/components/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
-import 'package:baby_tracker/constants/device_config.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/calender/view/calender_view.dart';
 import 'package:baby_tracker/pages/diaper_change/view/diaper_change_view.dart';
@@ -29,7 +28,6 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    DeviceConfig().init(context);
     final String? localImagePath = informationViewModel.imageFile?.path;
 
     return Scaffold(

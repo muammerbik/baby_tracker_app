@@ -1,9 +1,5 @@
-// textler ve renkler yazılaacak
-
 import 'package:flutter/material.dart';
-
-//color
-//
+//COLOR
 const cTransparent = Colors.transparent;
 const btnBlue = Color(0xFF4625C3);
 const lightGrey = Color(0x2D3C3C43);
@@ -15,14 +11,12 @@ const purple = Color(0xFFBB8AFF);
 const darkPurple = Color(0xFF9A63FF);
 const lightblue = Color(0xFF69CDDA);
 const darkBlue = Color(0xFF635AFF);
-const greyy = Colors.grey;
 const red = Colors.red;
 const orange = Colors.orange;
 const diaperColor = Color(0xFFC2C2C2);
 const grey = Colors.grey;
 
-//Text
-//
+//TEXT
 const mTitle = "Baby Tracker";
 const btnNext = "Next";
 const btnStart = "Start";
@@ -58,10 +52,9 @@ const snackbarMassageInaap = "Please choose the appropriate Premium package!";
 const errorContent = "Please make sure you fill out all fields completely";
 const errorTitle = "Missing or incorrect entry!";
 const settings = "Settings";
-const getPremiumm = "Get Premium";
 const rateUs = "Rate Us";
-const termsofUse = "Terms of Use";
-const privaryPolicy = "Privacy Policy";
+const termsOfUse = "Terms of Use";
+const privacyPolicy = "Privacy Policy";
 const contactUs = "Contact Us";
 const restorePurchase = "Restore Purchase";
 const time = "Time";
@@ -79,7 +72,6 @@ const feedingNote = "Feeding Note";
 const diaperNote = "Diaper Note";
 const sleepNote = "Sleep Note";
 const notee = " Note";
-
 const snackBarText = "Choose a premium plan to view the opportunities.";
 const weekly = "Weekly";
 const weekly$ = "\$12";
@@ -90,7 +82,7 @@ const annual$ = "\$150";
 const premiumTextMessage =
     "Premium support for your baby's development, every step of the way.";
 
-//imgage
+//IMAGE
 const onboardingImg1 = "assets/images/onbording1.png";
 const onboardingImg2 = "assets/images/onbording2.png";
 const onboardingImg3 = "assets/images/onbording3.png";

@@ -1,7 +1,7 @@
-import 'package:baby_tracker/companents/custom_text/text_widget.dart';
-import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
+
+import 'package:baby_tracker/components/custom_text/text_widget.dart';
+import 'package:baby_tracker/components/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
-import 'package:baby_tracker/constants/device_config.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/diaper_change/view/diaper_change_view.dart';
 import 'package:baby_tracker/pages/diaper_change/viewmodel/diaper_viewmodel.dart';
@@ -21,7 +21,7 @@ class _CustomDiaperListViewState extends State<CustomDiaperListView> {
 
   @override
   Widget build(BuildContext context) {
-    DeviceConfig().init(context);
+  
     return Observer(
       builder: (context) => diaperViewModel.diaperList.isNotEmpty
           ? ListView.builder(

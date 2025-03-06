@@ -1,9 +1,8 @@
-import 'package:baby_tracker/companents/custom_button/custom_elevated_button.dart';
-import 'package:baby_tracker/companents/custom_text/text_widget.dart';
-import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
+import 'package:baby_tracker/components/custom_button/custom_elevated_button.dart';
+import 'package:baby_tracker/components/custom_text/text_widget.dart';
+import 'package:baby_tracker/components/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
-import 'package:baby_tracker/pages/home/view/home_view.dart';
 import 'package:baby_tracker/pages/inapp/viewmodel/inapp_view_model.dart';
 import 'package:baby_tracker/pages/inapp/widgets/inapp_buttons.dart';
 import 'package:baby_tracker/pages/information/view/information_view.dart';

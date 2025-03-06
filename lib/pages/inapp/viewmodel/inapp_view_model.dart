@@ -1,7 +1,6 @@
-import 'package:baby_tracker/companents/custom_snack_bar/custom_snack_bar.dart';
-import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
+import 'package:baby_tracker/components/custom_snack_bar/custom_snack_bar.dart';
+import 'package:baby_tracker/components/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
-import 'package:baby_tracker/pages/home/view/home_view.dart';
 import 'package:baby_tracker/pages/information/view/information_view.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -38,7 +37,7 @@ abstract class _InAppViewModelBase with Store {
     await inAppCompletedGet();
 
     if (isInAppCompleted) {
-      Navigation.pushAndRemoveAll(page: const InformationView());
+      Navigation.push(page: const InformationView());
     }
   }
 

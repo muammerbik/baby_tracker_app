@@ -1,6 +1,5 @@
-import 'package:baby_tracker/companents/custom_button/custom_elevated_button.dart';
+import 'package:baby_tracker/components/custom_button/custom_elevated_button.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
-import 'package:baby_tracker/constants/device_config.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/onboarding/viewmodel/onbording_viewmodel.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -32,7 +31,6 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   @override
   Widget build(BuildContext context) {
-    DeviceConfig().init(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: Padding(
@@ -58,10 +56,10 @@ class _OnboardingViewState extends State<OnboardingView> {
                   physics: onboardingViewModel.notGoBack
                       ? const PageScrollPhysics()
                       : const NeverScrollableScrollPhysics(),
-                  itemCount: onboardingViewModel.OnboardingList.length,
+                  itemCount: onboardingViewModel.onboardingList.length,
                   itemBuilder: (context, index) {
                     final onboardingItem =
-                        onboardingViewModel.OnboardingList[index];
+                        onboardingViewModel.onboardingList[index];
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: Column(
@@ -100,7 +98,7 @@ class _OnboardingViewState extends State<OnboardingView> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 24.h),
                 child: DotsIndicator(
-                  dotsCount: onboardingViewModel.OnboardingList.length,
+                  dotsCount: onboardingViewModel.onboardingList.length,
                   position: onboardingViewModel.currentIndex.toDouble(),
                   decorator: DotsDecorator(
                     color: grey,

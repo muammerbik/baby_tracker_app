@@ -1,9 +1,8 @@
-import 'package:baby_tracker/companents/custom_app_bar/custom_app_bar.dart';
-import 'package:baby_tracker/companents/custom_button/custom_elevated_button.dart';
-import 'package:baby_tracker/companents/custom_text_form_field/custom_text_form_field.dart';
-import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
+import 'package:baby_tracker/components/custom_app_bar/custom_app_bar.dart';
+import 'package:baby_tracker/components/custom_button/custom_elevated_button.dart';
+import 'package:baby_tracker/components/custom_text_form_field/custom_text_form_field.dart';
+import 'package:baby_tracker/components/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
-import 'package:baby_tracker/constants/device_config.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
 import 'package:baby_tracker/pages/information/viewmodel/information_viewmodel.dart';
 import 'package:baby_tracker/pages/information/widgets/add_image_widget.dart';
@@ -93,9 +92,9 @@ class _InformationViewState extends State<InformationView> {
               keyboardType: TextInputType.number,
               onTap: () {
                 informationViewModel.selectTime(
-                    context, informationViewModel.timeofBirthController);
+                    context, informationViewModel.timeOfBirthController);
               },
-              controller: informationViewModel.timeofBirthController,
+              controller: informationViewModel.timeOfBirthController,
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.h),

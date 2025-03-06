@@ -1,4 +1,4 @@
-import 'package:baby_tracker/companents/navigation_helper/navigation_helper.dart';
+import 'package:baby_tracker/components/navigation_helper/navigation_helper.dart';
 import 'package:baby_tracker/constants/app_strings.dart';
 import 'package:baby_tracker/core/hive.dart';
 import 'package:baby_tracker/get_it/get_it.dart';
