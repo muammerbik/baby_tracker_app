@@ -16,6 +16,6 @@ Baby Tracker is a user-friendly mobile application that allows parents to track 
 - uuid
 - date_format
 - path_provider
-- flutter_launcher_icons
+- flutter_launcher_icons.
 
 - App Link :https://www.linkedin.com/feed/update/urn:li:activity:7151887610729132032/
